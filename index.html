@@ -1,204 +1,191 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>InCrime — Every Case, Every Detail</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InCrime – Every Case, Every Detail</title>
   <style>
-    :root{
-      --law-yellow:#f7e9c3;   /* header & card color */
-      --muted-blue:#dcecfb;   /* page background */
-      --accent:#d9c47a;       /* thin border accents */
-      --text:#222;
-      --shadow: 0 6px 10px rgba(0,0,0,0.12);
-      --radius:18px;
-    }
-    /* Reset-ish */
-    *{box-sizing:border-box;margin:0;padding:0;font-family: "Segoe UI", Roboto, Arial, sans-serif;color:var(--text)}
-    body{background:var(--muted-blue);line-height:1.45}
-    a{color:inherit;text-decoration:none}
-
-    /* Top header nav */
-    header.site-header{
-      background:var(--law-yellow);
-      border:4px solid var(--accent);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:10px 16px;
-      position:sticky;
-      top:0;
-      z-index:50;
-    }
-    .brand{
-      font-weight:700;
-      text-align:center;
-      width:220px;
-      font-size:18px;
-      line-height:1.1;
-    }
-    nav.main-nav{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    nav.main-nav a{
-      background:transparent;
-      border:2px solid rgba(0,0,0,0.08);
-      padding:8px 14px;
-      border-radius:6px;
-      font-weight:600;
-      box-shadow: 0 2px 0 rgba(0,0,0,0.06) inset;
-    }
-    .login-btn{
-      background:#eef6ff; border-left:1px solid #bfcfe6; padding:8px 12px; border-radius:4px;
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: #0d2a3a;
+      background: url('images/bg.jpg') center/cover no-repeat;
+      background-attachment: fixed;
     }
 
-    /* Hero area */
-    .hero{
-      display:flex;
-      gap:24px;
-      padding:36px;
-      align-items:flex-start;
-      border:4px solid var(--accent);
-      margin:18px;
-      border-radius:6px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.15));
-      position:relative;
-      overflow:hidden;
-      min-height:340px;
-    }
-    /* optional background image panel - you can replace the url */
-    .hero::before{
-      content:"";
-      position:absolute;
-      right:0; top:0; bottom:0;
-      width:48%;
-      background-image: url('images/bg.jpg');
-      background-size:cover;
-      background-position:center;
-      opacity:0.95;
-      filter: saturate(.75) contrast(.95);
-      z-index:0;
-    }
-    .hero .left{flex:1; padding:8px 18px; z-index:1}
-    .hero h1{
-      font-size:34px;
-      margin-bottom:14px;
-      color:#0d2a3a;
-    }
-    .hero p.lead{font-weight:600; margin-bottom:18px; max-width:780px}
-    .cta-card{
-      width:320px; min-height:200px; background:var(--law-yellow); border-radius:32px; padding:28px;
-      box-shadow: var(--shadow); border:3px solid rgba(0,0,0,0.06);
-      margin-left:auto; z-index:1;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .cta-btn{
-      display:inline-block; padding:12px 22px; background:#eef6ff; border-radius:6px; border:2px solid rgba(0,0,0,0.12); font-weight:700; box-shadow:0 6px 0 rgba(0,0,0,0.08);
+    /* --- Navbar --- */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 60px;
+      background: rgba(13, 42, 58, 0.9);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
     }
 
-    /* section separator */
-    .split{
-      margin:18px;
-      border-top:4px solid rgba(0,0,0,0.06);
-      padding-top:22px;
+    nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
 
-    /* Case Categories */
-    .cases-wrap{display:grid; grid-template-columns:repeat(3,1fr); gap:34px; align-items:start; padding:26px}
-    .cases-title{grid-column:1/-1; text-align:center; font-size:26px; font-weight:800; padding:8px 18px; background:#fff; margin:0 auto 8px; width:260px; border-radius:8px; box-shadow:0 4px 8px rgba(0,0,0,0.08)}
-    .case-card{
-      background:var(--law-yellow);
-      border-radius:20px;
-      padding:30px;
-      min-height:130px;
-      display:flex; align-items:center; justify-content:center;
-      text-align:center;
-      box-shadow: 0 10px 18px rgba(0,0,0,0.06);
-      border:3px solid rgba(0,0,0,0.04);
-      font-weight:700;
-    }
-    .case-card small{display:block; margin-top:8px; font-weight:600; font-size:14px}
-
-    /* responsive */
-    @media (max-width:900px){
-      .hero{flex-direction:column}
-      .hero::before{width:100%; height:180px; opacity:0.9}
-      .cases-wrap{grid-template-columns:repeat(2,1fr)}
-      nav.main-nav{display:none} /* keep header compact on mobile */
-    }
-    @media (max-width:560px){
-      .cases-wrap{grid-template-columns:1fr}
-      .cta-card{width:100%}
-      .brand{font-size:16px}
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Footer */
-    footer{padding:20px 18px; text-align:center; color:#333; opacity:0.85}
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav ul li a: hover {
+      color: #FFD700;
+    }
+
+    nav button {
+      background: #FFD700;
+      border: none;
+      color: #0d2a3a;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    nav button:hover {
+      background: #f4d03f;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 600px;
+    }
+
+    /* --- Categories --- */
+    .categories {
+      padding: 60px;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .categories h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 32px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: #0d2a3a;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #333;
+      font-size: 15px;
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: #0d2a3a;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+    }
+
   </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="brand">
-      InCrime<br><small style="font-weight:600">Every Case, Every Detail</small>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">⚖️ InCrime</div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button onclick="window.location.href='login.html'">Login</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Every Case, Every Detail</h1>
+    <p>Get AI-powered legal help and auto-generated court documents in minutes — without hiring a lawyer.</p>
+  </div>
+
+  <!-- Categories -->
+  <section class="categories">
+    <h2>Case Categories</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Criminal Cases</h3>
+        <p>Cases related to theft, assault, and other criminal offences. Legal guidance and FIR drafting support available.</p>
+      </div>
+      <div class="card">
+        <h3>Civil Cases</h3>
+        <p>Property, marriage, and contractual disputes. Generate petitions or applications instantly.</p>
+      </div>
+      <div class="card">
+        <h3>Family Cases</h3>
+        <p>Divorce, custody, and domestic issues are handled with privacy and accuracy through our AI forms.</p>
+      </div>
+      <div class="card">
+        <h3>Business Cases</h3>
+        <p>Corporate and SME-related disputes with automated agreement and compliance drafting options.</p>
+      </div>
     </div>
-
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="#">Home</a>
-      <a href="#">Case Categories ▾</a>
-      <a href="#">How It Works</a>
-      <a href="#">Chatbot Help</a>
-      <a href="#">Contact</a>
-      <a href="#">About</a>
-      <a class="login-btn" href="#">Log In</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="left">
-        <h1>"Automated Legal Document Generation & Case Assistance"</h1>
-        <p class="lead">(Generate court applications, FIRs, and legal documents instantly. Get guided assistance through an integrated chatbot for your legal queries.)</p>
-        <p>Use the button on right to start generating your application or to open a guided form. This hero area is intentionally spacious to reflect a professional legal service.</p>
-      </div>
-
-      <aside class="cta-card" aria-hidden="false">
-        <button class="cta-btn" onclick="alert('Start Application flow (replace with real action)')">Generate your Application</button>
-      </aside>
-    </section>
-
-    <section class="split">
-      <div class="cases-wrap">
-        <div class="cases-title">Case Categories</div>
-
-        <div class="case-card">
-          "Criminal Cases"
-          <small>(e.g., FIR, Theft, Harassment)</small>
-        </div>
-
-        <div class="case-card">
-          "Family Cases"
-          <small>(e.g., Divorce, Child Custody, Maintenance)</small>
-        </div>
-
-        <div class="case-card">
-          "Civil Cases"
-          <small>(e.g., Property Dispute, Contracts, Recovery)</small>
-        </div>
-      </div>
-    </section>
-  </main>
+  </section>
 
   <footer>
-    © <span id="year"></span> InCrime — Automated legal document assistance. Built with care.
+    © 2025 InCrime | Every Case, Every Detail
   </footer>
 
-  <script>
-    // small script for year and mobile nav toggle (expandable)
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
