@@ -109,6 +109,24 @@
       background: #123d55;
     }
 
+    /* 👇 New “Create account” link styling */
+    .create-account {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .create-account a {
+      color: #0d2a3a;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .create-account a:hover {
+      color: #123d55;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -127,6 +145,11 @@
       <input type="password" placeholder="Password" required>
       <button type="submit" class="login-btn">Login</button>
     </form>
+
+    <!-- 👇 New account creation link -->
+    <div class="create-account">
+      Don’t have an account? <a href="signup.html">Create one</a>
+    </div>
   </div>
 </body>
 </html>
