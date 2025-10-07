@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Help – InCrime</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('images/bg.jpg') center/cover no-repeat;
+      background-attachment: fixed;
+      color: #0d2a3a;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 60px;
+      background: rgba(13, 42, 58, 0.9);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #FFD700;
+    }
+
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      background: rgba(255,255,255,0.9);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .user, .bot {
+      padding: 12px 18px;
+      border-radius: 15px;
+      max-width: 70%;
+    }
+
+    .user {
+      background: #FFD700;
+      align-self: flex-end;
+    }
+
+    .bot {
+      background: #e8e8e8;
+      align-self: flex-start;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #0d2a3a;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #133a52;
+    }
+
+    footer {
+      background: #0d2a3a;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">⚖️ InCrime</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="application.html">Create Application</a></li>
+      <li><a href="chatbot.html">Chatbot Help</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="chat-container">
+    <div class="chat-box" id="chat-box">
+      <div class="bot">👋 Hello! I'm your legal assistant. How can I help you today?</div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Type your message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <footer>© 2025 InCrime | Every Case, Every Detail</footer>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const chatBox = document.getElementById('chat-box');
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      // User message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'user';
+      userDiv.textContent = msg;
+      chatBox.appendChild(userDiv);
+
+      // Bot response
+      const botDiv = document.createElement('div');
+      botDiv.className = 'bot';
+      botDiv.textContent = "I'm analyzing your question, please wait...";
+      chatBox.appendChild(botDiv);
+
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      setTimeout(() => {
+        botDiv.textContent = "This is a sample chatbot. In actual version, I’ll generate legal advice based on your query.";
+      }, 1200);
+    }
+  </script>
+
+</body>
+</html>
