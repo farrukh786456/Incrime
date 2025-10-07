@@ -71,84 +71,77 @@
     .hero {
       height: 90vh;
       display: flex;
-      justify-content: center;
       align-items: center;
-      position: relative;
+      justify-content: center;
       color: white;
+      position: relative;
       text-align: left;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+      padding: 0 80px;
       background:
         linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-        url('https://plus.unsplash.com/premium_photo-1698084059560-9a53de7b816b?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat;
-      z-index: -1;
+        url('https://images.unsplash.com/photo-1617203443952-6d2619f7ff4e?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
+      background-attachment: scroll;
     }
 
     .hero-content {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 85%;
+      width: 100%;
       max-width: 1200px;
-      gap: 60px;
     }
 
     .hero-text {
       flex: 1;
+      padding-right: 40px;
     }
 
-    .hero-text h1 {
+    .hero h1 {
       font-size: 46px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
-    .hero-text p {
+    .hero p {
       font-size: 18px;
-      line-height: 1.6;
-      max-width: 500px;
-      color: #f1f1f1;
+      max-width: 550px;
+      color: #f2f2f2;
     }
 
-    /* --- Modern Action Card (Right Side Button) --- */
-    .hero-action {
-      flex: 0 0 280px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .hero-action:hover {
-      transform: scale(1.05);
-    }
-
-    .action-card {
-      background: linear-gradient(135deg, #FFD700, #f4d03f);
-      color: #0d2a3a;
-      padding: 40px 20px;
-      border-radius: 15px;
+    /* --- Modern Glassmorphism Card --- */
+    .app-card {
+      flex: 0.8;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      padding: 35px;
       text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      transition: all 0.4s ease;
+      transition: 0.4s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transform: translateY(0);
     }
 
-    .action-card:hover {
-      background: linear-gradient(135deg, #ffe36e, #FFD700);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    .app-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
     }
 
-    .action-card span {
-      font-size: 45px;
-      display: block;
+    .app-card .icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .app-card h3 {
+      font-size: 22px;
+      color: #FFD700;
       margin-bottom: 10px;
     }
 
-    .action-card h3 {
-      font-size: 20px;
-      font-weight: 700;
+    .app-card p {
+      color: #fff;
+      font-size: 14px;
+      opacity: 0.9;
     }
 
     /* --- Categories --- */
@@ -212,6 +205,7 @@
       text-align: center;
       padding: 15px;
     }
+
   </style>
 </head>
 <body>
@@ -237,12 +231,12 @@
         <h1>Automated Legal Document Generation & Case Assistance</h1>
         <p>"Generate court applications, FIRs, and legal documents instantly. Get guided assistance through an integrated chatbot for your legal queries."</p>
       </div>
-      
-      <div class="hero-action" onclick="window.location.href='application.html'">
-        <div class="action-card">
-          <span>📜</span>
-          <h3>Generate Your Application</h3>
-        </div>
+
+      <!-- Modern Stylish Card -->
+      <div class="app-card" onclick="window.location.href='application.html'">
+        <div class="icon">⚖️</div>
+        <h3>Generate Your Application</h3>
+        <p>Quickly draft and download legal applications using AI</p>
       </div>
     </div>
   </div>
