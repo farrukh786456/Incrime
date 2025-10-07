@@ -1,1 +1,4 @@
+background:
+  linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+  url('https://images.unsplash.com/photo-1505666287591-06b9a1d5b0a4') center/cover no-repeat;
 
