@@ -49,7 +49,7 @@
       transition: 0.3s;
     }
 
-    nav ul li a: hover {
+    nav ul li a:hover {
       color: #FFD700;
     }
 
@@ -88,6 +88,57 @@
     .hero p {
       font-size: 20px;
       max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    /* --- Stylish Book Button --- */
+    .book {
+      width: 260px;
+      height: 160px;
+      background: linear-gradient(145deg, #fdf497, #FFD700);
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      cursor: pointer;
+      position: relative;
+      perspective: 1000px;
+      transition: transform 0.4s;
+    }
+
+    .book:hover {
+      transform: scale(1.05) rotateY(10deg);
+    }
+
+    .book .cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0d2a3a;
+      color: white;
+      border-radius: 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    .book:hover .cover {
+      transform: rotateY(-30deg);
+    }
+
+    .book .cover h3 {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #FFD700;
+    }
+
+    .book .cover span {
+      font-size: 30px;
     }
 
     /* --- Categories --- */
@@ -99,7 +150,21 @@
     .categories h2 {
       text-align: center;
       margin-bottom: 40px;
-      font-size: 32px;
+      font-size: 36px;
+      color: #0d2a3a;
+      position: relative;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .categories h2::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: #FFD700;
+      margin: 10px auto 0;
+      border-radius: 2px;
     }
 
     .cards {
@@ -147,9 +212,9 @@
     <div class="logo">⚖️ InCrime</div>
     <ul>
       <li><a href="#">Home</a></li>
-      <li><a href="#">Case Categories</a></li
-      <li><a href="#">How Its Work</a></li
-      <li><a href="#">Chatbot Help</a></li>
+      <li><a href="#categories">Case Categories</a></li>
+      <li><a href="application.html">How It Works</a></li>
+      <li><a href="chatbot.html">Chatbot Help</a></li>
       <li><a href="#">About</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
@@ -160,10 +225,18 @@
   <div class="hero">
     <h1>Automated Legal Document Generation & Case Assistance</h1>
     <p>"Generate court applications, FIRs, and legal documents instantly. Get guided assistance through an integrated chatbot for your legal queries."</p>
+    
+    <!-- Stylish Book Button -->
+    <div class="book" onclick="window.location.href='application.html'">
+      <div class="cover">
+        <span>📚</span>
+        <h3>Create Your Application</h3>
+      </div>
+    </div>
   </div>
 
   <!-- Categories -->
-  <section class="categories">
+  <section class="categories" id="categories">
     <h2>Case Categories</h2>
     <div class="cards">
       <div class="card">
