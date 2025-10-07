@@ -41,13 +41,27 @@
       font-size: 24px;
     }
 
+    .input-group {
+      position: relative;
+      margin-bottom: 12px;
+    }
+
     input {
       width: 100%;
       padding: 10px;
-      margin-bottom: 12px;
       border: 1px solid #bbb;
       border-radius: 6px;
       font-size: 15px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #555;
+      font-size: 18px;
     }
 
     .signup-btn {
@@ -99,12 +113,25 @@
     <h2>Create Account</h2>
     <form id="signupForm">
       <input type="text" placeholder="Full Name" required>
-      <input type="text" placeholder="CNIC (without dashes)" required pattern="\d{13}" title="Enter 13 digit CNIC number">
-      <input type="tel" placeholder="Phone Number" required pattern="\d{10,13}" title="Enter valid phone number">
+
+      <input type="text" id="contactInfo" placeholder="Phone Number or Email" required
+             title="Enter valid phone number or email">
+
       <input type="text" placeholder="Username" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Password" required>
+        <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+        <span class="toggle-password" onclick="togglePassword('confirmPassword', this)">👁️</span>
+      </div>
+
       <div class="error-message" id="errorMsg">Passwords do not match!</div>
+      <div class="error-message" id="contactError">Please enter a valid phone number or email.</div>
+
       <button type="submit" class="signup-btn">Sign Up</button>
     </form>
 
@@ -114,20 +141,48 @@
   </div>
 
   <script>
-    // Password Match Validation
+    // Password Match + Contact Validation
     document.getElementById('signupForm').addEventListener('submit', function(event) {
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
       const errorMsg = document.getElementById('errorMsg');
+      const contact = document.getElementById('contactInfo').value.trim();
+      const contactError = document.getElementById('contactError');
+
+      // Email or phone regex
+      const phonePattern = /^\d{10,13}$/;
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      let validContact = phonePattern.test(contact) || emailPattern.test(contact);
+
+      if (!validContact) {
+        contactError.style.display = 'block';
+        event.preventDefault();
+        return;
+      } else {
+        contactError.style.display = 'none';
+      }
 
       if (password !== confirmPassword) {
         errorMsg.style.display = 'block';
-        event.preventDefault(); // Stop form submission
+        event.preventDefault();
       } else {
         errorMsg.style.display = 'none';
         alert('✅ Account created successfully!');
       }
     });
+
+    // Show/Hide Password Toggle
+    function togglePassword(id, icon) {
+      const field = document.getElementById(id);
+      if (field.type === 'password') {
+        field.type = 'text';
+        icon.textContent = '🙈';
+      } else {
+        field.type = 'password';
+        icon.textContent = '👁️';
+      }
+    }
   </script>
 </body>
 </html>
