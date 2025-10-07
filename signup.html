@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up – InCrime</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('images/login-bg.jpg') center/cover no-repeat;
+      color: #0d2a3a;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.75);
+      z-index: 0;
+    }
+
+    .signup-card {
+      position: relative;
+      z-index: 1;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      padding: 40px 30px;
+      width: 360px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    .signup-btn {
+      background: #0d2a3a;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 8px;
+    }
+
+    .signup-btn:hover {
+      background: #123d55;
+    }
+
+    .login-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .login-link a {
+      color: #0d2a3a;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .login-link a:hover {
+      color: #123d55;
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="signup-card">
+    <h2>Create Account</h2>
+    <form id="signupForm">
+      <input type="text" placeholder="Full Name" required>
+      <input type="text" placeholder="CNIC (without dashes)" required pattern="\d{13}" title="Enter 13 digit CNIC number">
+      <input type="tel" placeholder="Phone Number" required pattern="\d{10,13}" title="Enter valid phone number">
+      <input type="text" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <div class="error-message" id="errorMsg">Passwords do not match!</div>
+      <button type="submit" class="signup-btn">Sign Up</button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a href="login.html">Login here</a>
+    </div>
+  </div>
+
+  <script>
+    // Password Match Validation
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (password !== confirmPassword) {
+        errorMsg.style.display = 'block';
+        event.preventDefault(); // Stop form submission
+      } else {
+        errorMsg.style.display = 'none';
+        alert('✅ Account created successfully!');
+      }
+    });
+  </script>
+</body>
+</html>
