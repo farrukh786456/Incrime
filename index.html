@@ -204,48 +204,81 @@
 
     /* --- About Section --- */
     .about {
-      padding: 60px;
-      background: #f9f9f9;
-      text-align: center;
+      padding: 80px 10%;
+      background: linear-gradient(135deg, #f8f9fa, #e6f0f5);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .about h2 {
-      font-size: 32px;
+      font-size: 38px;
       margin-bottom: 20px;
       color: #0d2a3a;
+      position: relative;
+    }
+
+    .about h2::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: #FFD700;
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      border-radius: 2px;
     }
 
     .about p {
       max-width: 800px;
-      margin: 0 auto;
-      font-size: 16px;
+      font-size: 17px;
       color: #333;
       line-height: 1.7;
+      margin-top: 20px;
     }
 
     /* --- Contact Section --- */
     .contact {
-      padding: 60px;
-      background: #eaeaea;
-      text-align: center;
+      padding: 80px 10%;
+      background: linear-gradient(135deg, #e8eef3, #dbe5ed);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .contact h2 {
-      font-size: 32px;
+      font-size: 38px;
+      margin-bottom: 20px;
       color: #0d2a3a;
-      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .contact h2::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: #FFD700;
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      border-radius: 2px;
     }
 
     .contact p {
+      font-size: 17px;
       color: #333;
-      font-size: 16px;
-      margin-bottom: 15px;
+      margin: 10px 0;
     }
 
     .contact a {
       color: #0d2a3a;
       text-decoration: none;
       font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .contact a:hover {
+      color: #FFD700;
     }
 
     /* --- Footer --- */
@@ -312,21 +345,21 @@
   <section class="about" id="about">
     <h2>About InCrime</h2>
     <p>
-      InCrime is a smart legal assistant platform that simplifies the legal process for everyone.
-      Our goal is to provide instant access to automated legal document generation and AI-powered legal guidance.
+      InCrime is a next-generation AI platform designed to simplify legal processes.
+      It helps citizens, lawyers, and law students generate accurate legal applications in minutes.
       <br><br>
-      <strong>Terms & Conditions:</strong> Use of InCrime requires agreement with our service terms and privacy policy.
+      <strong>Terms & Conditions:</strong> By using our platform, you agree to follow our user policies ensuring ethical use of data and documents.
       <br>
-      <strong>Privacy Policy:</strong> We respect your data and ensure all information remains confidential.
+      <strong>Privacy Policy:</strong> We value your privacy. All user data is securely encrypted and never shared with third parties.
     </p>
   </section>
 
   <!-- Contact Section -->
   <section class="contact" id="contact">
     <h2>Contact Us</h2>
-    <p>Email: <a href="mailto:support@incrime.pk">support@incrime.pk</a></p>
-    <p>Phone: <a href="tel:+923001234567">+92 300 1234567</a></p>
-    <p>Address: Model Town, Lahore, Pakistan</p>
+    <p>📧 Email: <a href="mailto:support@incrime.pk">support@incrime.pk</a></p>
+    <p>📞 Phone: <a href="tel:+923001234567">+92 300 1234567</a></p>
+    <p>📍 Address: Model Town, Lahore, Pakistan</p>
   </section>
 
   <footer>
