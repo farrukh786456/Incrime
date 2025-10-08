@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InCrime – Every Case, Every Detail</title>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -198,6 +202,52 @@
       font-size: 15px;
     }
 
+    /* --- About Section --- */
+    .about {
+      padding: 60px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #0d2a3a;
+    }
+
+    .about p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    /* --- Contact Section --- */
+    .contact {
+      padding: 60px;
+      background: #eaeaea;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 32px;
+      color: #0d2a3a;
+      margin-bottom: 25px;
+    }
+
+    .contact p {
+      color: #333;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .contact a {
+      color: #0d2a3a;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
     /* --- Footer --- */
     footer {
       background: #0d2a3a;
@@ -205,7 +255,6 @@
       text-align: center;
       padding: 15px;
     }
-
   </style>
 </head>
 <body>
@@ -216,10 +265,9 @@
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#categories">Case Categories</a></li>
-      <li><a href="#">How It Works</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
       <li><a href="chatbot.html">Chatbot Help</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
     </ul>
     <button onclick="window.location.href='login.html'">Login</button>
   </nav>
@@ -258,6 +306,27 @@
         <p>Divorce, custody, and domestic issues are handled with privacy and accuracy through our AI forms.</p>
       </div>
     </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2>About InCrime</h2>
+    <p>
+      InCrime is a smart legal assistant platform that simplifies the legal process for everyone.
+      Our goal is to provide instant access to automated legal document generation and AI-powered legal guidance.
+      <br><br>
+      <strong>Terms & Conditions:</strong> Use of InCrime requires agreement with our service terms and privacy policy.
+      <br>
+      <strong>Privacy Policy:</strong> We respect your data and ensure all information remains confidential.
+    </p>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: <a href="mailto:support@incrime.pk">support@incrime.pk</a></p>
+    <p>Phone: <a href="tel:+923001234567">+92 300 1234567</a></p>
+    <p>Address: Model Town, Lahore, Pakistan</p>
   </section>
 
   <footer>
