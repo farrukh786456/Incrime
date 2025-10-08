@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign Up – InCrime</title>
   <style>
     body {
@@ -34,7 +34,7 @@
       border-radius: 18px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       padding: 40px 35px;
-      width: 340px;
+      width: 360px;
       text-align: center;
       animation: fadeIn 0.8s ease-in-out;
       box-sizing: border-box;
@@ -124,29 +124,35 @@
 
     .error-message {
       color: red;
-      font-size: 14px;
+      font-size: 13px;
       margin-top: 5px;
       display: none;
     }
 
-    .rules {
-      text-align: left;
-      font-size: 13px;
-      color: #666;
-      margin-top: 8px;
-      margin-bottom: 8px;
-    }
-
+    /* 🔹 Password strength indicator (small and left-aligned) */
     #strengthMsg {
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 12px;
+      font-style: italic;
+      text-align: left;
+      margin-top: 3px;
+      margin-bottom: 8px;
       display: none;
-      margin-bottom: 10px;
+      opacity: 0.8;
     }
 
     .weak { color: red; }
-    .normal { color: blue; }
+    .normal { color: #007bff; }
     .strong { color: green; }
+
+    /* 🔹 Password rules under confirm password */
+    .rules {
+      text-align: left;
+      font-size: 12px;
+      color: #666;
+      margin-top: 6px;
+      margin-bottom: 10px;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -154,37 +160,39 @@
     <h2>Create Account</h2>
     <form id="signupForm">
       <div class="input-group">
-        <input type="text" placeholder="Full Name" required>
+        <input type="text" placeholder="Full Name" required />
       </div>
 
       <div class="input-group">
-        <input type="text" id="contactInfo" placeholder="Phone Number or Email" required>
+        <input type="text" id="contactInfo" placeholder="Phone Number or Email" required />
       </div>
 
       <div class="input-group">
-        <input type="text" placeholder="Username" required>
+        <input type="text" placeholder="Username" required />
       </div>
 
       <div class="input-group">
-        <input type="password" id="password" placeholder="Password" required>
+        <input type="password" id="password" placeholder="Password" required />
         <svg class="toggle-password" id="togglePass" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
         </svg>
       </div>
 
+      <!-- Password strength message (under password box, left side) -->
       <div id="strengthMsg"></div>
 
-      <div class="rules" id="rules">
-        Your password must contain 8–16 characters, including at least one uppercase letter, one number, and one special character (!@#$%^&*).
-      </div>
-
       <div class="input-group">
-        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
         <svg class="toggle-password" id="toggleConfirm" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
         </svg>
+      </div>
+
+      <!-- Password rule under confirm password -->
+      <div class="rules">
+        Your password must contain 8–16 characters, including at least one uppercase letter, one number, and one special character (!@#$%^&*).
       </div>
 
       <div class="error-message" id="errorMsg">Passwords do not match!</div>
@@ -215,13 +223,13 @@
       strengthMsg.style.display = val ? "block" : "none";
 
       if (strength <= 2) {
-        strengthMsg.textContent = "Weak Password";
+        strengthMsg.textContent = "Weak password";
         strengthMsg.className = "weak";
       } else if (strength === 3) {
-        strengthMsg.textContent = "Normal Password";
+        strengthMsg.textContent = "Normal password";
         strengthMsg.className = "normal";
       } else if (strength === 4) {
-        strengthMsg.textContent = "Strong Password";
+        strengthMsg.textContent = "Strong password";
         strengthMsg.className = "strong";
       }
     });
