@@ -1,309 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>How It Works – InCrime</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>How It Works — InCrime (Interactive Demo)</title>
 <style>
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #e9f0f5, #fdfdfd);
-  color: #0d2a3a;
-  overflow-x: hidden;
-}
+  :root{
+    --accent:#FFD700;
+    --nav:#0d2a3a;
+    --bg1:#e9f0f5;
+    --bg2:#fdfdfd;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+    background: linear-gradient(135deg,var(--bg1),var(--bg2));
+    color:var(--nav);
+  }
 
-/* Navbar */
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 60px;
-  background: rgba(13, 42, 58, 0.95);
-  color: #fff;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-nav .logo { font-size: 24px; font-weight: bold; }
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 25px;
-  margin: 0;
-  padding: 0;
-}
-nav ul li a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: 500;
-  transition: 0.3s;
-}
-nav ul li a:hover { color: #FFD700; }
-nav button {
-  background: #FFD700;
-  border: none;
-  color: #0d2a3a;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-}
-nav button:hover { background: #f4d03f; }
+  /* NAV */
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 36px;
+    background: rgba(13,42,58,0.95);
+    color:#fff;
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow:0 3px 10px rgba(0,0,0,0.15);
+  }
+  .logo{font-weight:700; font-size:20px;}
+  .nav-links{display:flex;gap:18px;align-items:center;}
+  .nav-links a{color:#fff;text-decoration:none;font-weight:600;}
+  .nav-links a:hover{color:var(--accent);}
 
-/* Container */
-.container {
-  text-align: center;
-  padding: 80px 10%;
-}
-h1 {
-  font-size: 42px;
-  color: #0d2a3a;
-  margin-bottom: 15px;
-}
-p {
-  font-size: 18px;
-  max-width: 700px;
-  margin: 0 auto 50px;
-  color: #333;
-}
+  /* page header */
+  .hero-area{padding:46px 10% 20px;text-align:center}
+  .hero-area h1{font-size:34px;margin:6px 0 8px}
+  .hero-area p{max-width:900px;margin:0 auto;color:#333}
 
-/* Boxes Section */
-.boxes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-.box {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  padding: 30px;
-  width: 280px;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-  animation: fadeUp 1.5s ease forwards;
-  opacity: 0;
-}
-.box:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-}
-@keyframes fadeUp {
-  from { transform: translateY(40px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-.icon {
-  font-size: 50px;
-  margin-bottom: 10px;
-  color: #FFD700;
-}
+  /* main boxes (manual) */
+  .boxes-wrap{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;padding:36px 10%}
+  .box{
+    width:300px;background:#fff;border-radius:14px;padding:26px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    cursor:pointer;transition:transform .25s,box-shadow .25s;
+    display:flex;flex-direction:column;align-items:flex-start;
+  }
+  .box:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.12)}
+  .box .ico{font-size:34px;color:var(--accent);margin-bottom:10px}
+  .box h3{margin:0 0 6px}
+  .box p{margin:0;color:#555}
 
-/* Modal (overlay animation) */
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(13,42,58,0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.4s ease;
-  z-index: 20;
-}
-.overlay.show {
-  visibility: visible;
-  opacity: 1;
-}
-.modal {
-  background: white;
-  border-radius: 20px;
-  width: 80%;
-  max-width: 700px;
-  padding: 40px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-  animation: popIn 0.5s ease;
-  position: relative;
-}
-@keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-.modal h2 {
-  color: #0d2a3a;
-}
-.close-btn {
-  position: absolute;
-  top: 15px; right: 15px;
-  background: #FFD700;
-  border: none;
-  border-radius: 50%;
-  width: 35px; height: 35px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
-  color: #0d2a3a;
-  transition: 0.3s;
-}
-.close-btn:hover { background: #f4d03f; }
+  .controls{display:flex;gap:12px;justify-content:center;padding-bottom:28px}
 
-/* Mini simulation screen */
-.simulation {
-  background: #f5f5f5;
-  border: 2px solid #ddd;
-  border-radius: 12px;
-  margin-top: 20px;
-  height: 300px;
-  position: relative;
-  overflow: hidden;
-  padding: 20px;
-  font-size: 15px;
-  color: #333;
-}
-.chat-bubble {
-  background: #0d2a3a;
-  color: #fff;
-  padding: 8px 14px;
-  border-radius: 10px 10px 10px 0;
-  margin: 10px 0;
-  width: fit-content;
-  animation: slideInLeft 0.6s ease forwards;
-}
-.user-bubble {
-  background: #FFD700;
-  color: #0d2a3a;
-  border-radius: 10px 10px 0 10px;
-  margin-left: auto;
-  animation: slideInRight 0.6s ease forwards;
-}
-@keyframes slideInLeft { from { transform: translateX(-40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-@keyframes slideInRight { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  /* Demo overlay (video-like) */
+  .demo-overlay{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:rgba(13,42,58,0.6);backdrop-filter: blur(2px);
+    visibility:hidden;opacity:0;transition:opacity .35s, visibility .35s;z-index:100;
+  }
+  .demo-overlay.show{visibility:visible;opacity:1}
 
-footer {
-  background: #0d2a3a;
-  color: #fff;
-  text-align: center;
-  padding: 15px;
-  margin-top: 50px;
-}
+  .mock-browser{
+    width:900px; max-width:95%; height:520px; border-radius:14px;
+    background:linear-gradient(180deg,#fff,#f6f8fa);
+    box-shadow:0 20px 60px rgba(0,0,0,0.45); position:relative; overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+
+  /* top bar of mock browser */
+  .mb-top{height:56px;background:linear-gradient(90deg,#0d2a3a,#0b2630);color:#fff;
+    display:flex;align-items:center;gap:12px;padding:0 16px;font-weight:600}
+  .mb-top .tabs{display:flex;gap:8px;align-items:center;margin-left:8px}
+  .mb-top .dot{width:10px;height:10px;border-radius:50%;background:#ffd;opacity:.6}
+
+  /* mock content area */
+  .mb-main{flex:1;display:flex;overflow:hidden;position:relative;padding:20px}
+
+  /* states inside mock */
+  .page{
+    width:100%;height:100%;position:absolute;left:0;top:0;
+    transition:opacity .6s, transform .6s; padding:22px;box-sizing:border-box;
+  }
+  .page.hidden{opacity:0;transform:scale(.99);pointer-events:none}
+  .page.visible{opacity:1;transform:scale(1);pointer-events:auto}
+
+  /* home mini layout */
+  .mini-hero{display:flex;gap:18px;align-items:center;height:100%}
+  .mini-left{flex:1}
+  .mini-left h2{font-size:20px;margin:0 0 10px;color:#0d2a3a}
+  .mini-left p{font-size:13px;color:#29404a}
+  .mini-card{width:260px;background:linear-gradient(145deg,#fff9db,#fff0a8);
+    border-radius:10px;padding:16px;color:#0d2a3a;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+
+  /* how-it-works mock page */
+  .mini-how{display:flex;gap:16px;flex-direction:column}
+  .mini-how .stepboxes{display:flex;gap:14px;margin-top:12px}
+  .mini-how .mini-box{background:#fff;border-radius:10px;padding:10px;width:220px;
+    box-shadow:0 8px 18px rgba(0,0,0,0.06)}
+  .mini-how h3{margin:0;color:#0d2a3a}
+
+  /* modal inside mock */
+  .mini-modal{
+    background:#fff;border-radius:12px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,0.12);
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.95);
+    width:70%;max-width:540px;height:60%;overflow:auto;opacity:0;transition:all .35s;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .mini-modal.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .mini-modal h4{margin:0;color:#0d2a3a}
+  .mini-modal .sim-step{background:#f6f8fa;padding:10px;border-radius:8px;margin-top:8px}
+
+  /* faux cursor */
+  .cursor {
+    position:absolute;width:18px;height:28px;border-radius:4px;
+    background:#0d2a3a;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;
+    transform:translate(-50%,-50%) rotate(18deg);box-shadow:0 6px 18px rgba(0,0,0,.25);
+    z-index:120; pointer-events:none;
+  }
+
+  /* footer small */
+  .page-footer{padding:12px;text-align:center;font-size:13px;color:#666}
+
+  /* small controls inside overlay */
+  .demo-controls{position:absolute;right:18px;top:18px;display:flex;gap:8px;z-index:130}
+  .demo-controls button{background:var(--accent);border:none;color:var(--nav);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+  .demo-controls button:hover{transform:translateY(-2px)}
+
+  /* responsive */
+  @media (max-width:860px){
+    .mock-browser{height:420px}
+    .mini-card{display:none}
+    .mini-how .stepboxes{flex-direction:column}
+  }
+
 </style>
 </head>
 <body>
 
-<!-- Navbar -->
 <nav>
   <div class="logo">⚖️ InCrime</div>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="index.html#categories">Case Categories</a></li>
-    <li><a href="#">How It Works</a></li>
-    <li><a href="chatbot.html">Chatbot Help</a></li>
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-  </ul>
-  <button onclick="window.location.href='login.html'">Login</button>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#categories">Case Categories</a>
+    <a href="how-it-works-demo.html">How It Works</a>
+    <a href="chatbot.html">Chatbot Help</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+  <button onclick="location.href='login.html'">Login</button>
 </nav>
 
-<!-- Main Section -->
-<div class="container">
-  <h1>How InCrime Works</h1>
-  <p>Choose a guide below to explore how our system helps you through animation.</p>
+<section class="hero-area">
+  <h1>How It Works — Interactive Demo</h1>
+  <p>Click <strong>Play Demo</strong> to watch a short animated walkthrough: Home → How It Works → pick an option → step-by-step demo (video-like).</p>
+</section>
 
-  <div class="boxes">
-    <div class="box" onclick="openModal('chatbot')">
-      <div class="icon">💬</div>
-      <h3>Chatbot Assistance</h3>
-      <p>See how our chatbot helps you get instant legal guidance.</p>
+<div class="controls">
+  <button id="playDemo" style="background:var(--accent);color:var(--nav);padding:10px 18px;border-radius:10px;border:none;font-weight:700;cursor:pointer">▶ Play Demo</button>
+  <button id="openChatBtn" style="padding:10px 18px;border-radius:10px;border:1px solid #ddd;cursor:pointer">Open Chatbot Demo</button>
+</div>
+
+<div class="boxes-wrap">
+  <div class="box" onclick="openModal('chatbot')">
+    <div class="ico">💬</div>
+    <h3>Chatbot Assistance</h3>
+    <p>Interactive Q&A assistant — ask and get guided responses for filing cases.</p>
+  </div>
+
+  <div class="box" onclick="openModal('application')">
+    <div class="ico">🧾</div>
+    <h3>Generate Application</h3>
+    <p>Fill a guided form, let AI generate legal document, preview & download.</p>
+  </div>
+</div>
+
+<!-- Demo overlay -->
+<div id="demoOverlay" class="demo-overlay" aria-hidden="true">
+  <div class="mock-browser" role="dialog" aria-label="Demo player">
+    <div class="demo-controls">
+      <button id="replayBtn">Replay</button>
+      <button id="closeDemoBtn">Close</button>
     </div>
 
-    <div class="box" onclick="openModal('application')">
-      <div class="icon">🧾</div>
-      <h3>Generate Application</h3>
-      <p>Learn how to create your case application step-by-step.</p>
+    <div class="mb-top">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="dot" style="background:#ff6b6b"></div>
+        <div class="dot" style="background:#ffd166"></div>
+        <div class="dot" style="background:#6bf0a3"></div>
+      </div>
+      <div style="margin-left:10px;font-weight:700">incrime.local/demo</div>
+    </div>
+
+    <div class="mb-main">
+      <!-- HOME (frame) -->
+      <div id="frameHome" class="page visible">
+        <div class="mini-hero">
+          <div class="mini-left">
+            <h2>Automated Legal Document Generation</h2>
+            <p>Home hero — quick access to Generate Application and Chatbot Help. (This is a mini-simulated Home screen.)</p>
+            <div style="margin-top:18px;">
+              <div style="display:inline-block;margin-right:10px;background:#fff;border-radius:8px;padding:8px 12px;border:1px solid #eee;font-weight:700;color:#0d2a3a">How It Works</div>
+              <div style="display:inline-block;background:#fff;border-radius:8px;padding:8px 12px;border:1px solid #eee;color:#6b7280">Contact</div>
+            </div>
+          </div>
+          <div class="mini-card">
+            <div style="font-size:20px;font-weight:700">Generate Your Application</div>
+            <div style="font-size:13px;margin-top:6px">Click to start creating a legal application using AI</div>
+          </div>
+        </div>
+        <div class="page-footer">Mini Home</div>
+      </div>
+
+      <!-- HOW page (frame) -->
+      <div id="frameHow" class="page hidden">
+        <div class="mini-how">
+          <h3>How It Works</h3>
+          <p style="color:#345">Choose a guide to watch an animation-based walkthrough.</p>
+          <div class="stepboxes">
+            <div class="mini-box" id="miniChatBox">
+              <strong>Chatbot Assistance</strong>
+              <div style="font-size:12px;color:#666;margin-top:6px">Chat, ask questions, collect details.</div>
+            </div>
+            <div class="mini-box" id="miniAppBox">
+              <strong>Generate Application</strong>
+              <div style="font-size:12px;color:#666;margin-top:6px">Fill form → AI drafts → Download.</div>
+            </div>
+          </div>
+        </div>
+        <div class="page-footer">Mini How It Works</div>
+      </div>
+
+      <!-- modal inside mock (for step-by-step) -->
+      <div id="miniModal" class="mini-modal" aria-hidden="true">
+        <h4 id="miniModalTitle">Demo</h4>
+        <div id="miniSteps" style="flex:1;overflow:auto;padding-right:6px"></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button onclick="stopDemo()" style="background:#eee;border:1px solid #ddd;padding:6px 10px;border-radius:8px;cursor:pointer">Stop</button>
+        </div>
+      </div>
+
+      <div class="cursor" id="demoCursor" style="display:none;">▶</div>
     </div>
   </div>
 </div>
 
-<!-- Modal Overlay -->
-<div id="overlay" class="overlay">
-  <div class="modal" id="modalContent">
-    <button class="close-btn" onclick="closeModal()">×</button>
-    <h2 id="modalTitle"></h2>
-    <div class="simulation" id="simulationArea"></div>
-  </div>
-</div>
-
-<footer>© 2025 InCrime | Empowering Legal Access for Everyone</footer>
+<footer style="padding:26px;text-align:center;color:#546; font-size:13px">© 2025 InCrime</footer>
 
 <script>
-function openModal(type) {
-  const overlay = document.getElementById("overlay");
-  const modalTitle = document.getElementById("modalTitle");
-  const simulation = document.getElementById("simulationArea");
-  simulation.innerHTML = ""; // clear old animation
+  // util
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-  overlay.classList.add("show");
+  // overlay + controls
+  const demoOverlay = document.getElementById('demoOverlay');
+  const playBtn = document.getElementById('playDemo');
+  const closeDemoBtn = document.getElementById('closeDemoBtn');
+  const replayBtn = document.getElementById('replayBtn');
+  const demoCursor = document.getElementById('demoCursor');
 
-  if (type === "chatbot") {
-    modalTitle.textContent = "Chatbot Assistance";
-    simulateChatbot(simulation);
-  } else {
-    modalTitle.textContent = "Generate Application";
-    simulateApplication(simulation);
+  playBtn.addEventListener('click', ()=> startDemo());
+  closeDemoBtn.addEventListener('click', ()=> stopDemo());
+  replayBtn.addEventListener('click', ()=> startDemo(true));
+
+  // references to frames
+  const frameHome = document.getElementById('frameHome');
+  const frameHow = document.getElementById('frameHow');
+  const miniModal = document.getElementById('miniModal');
+  const miniSteps = document.getElementById('miniSteps');
+  const miniChatBox = document.getElementById('miniChatBox');
+  const miniAppBox = document.getElementById('miniAppBox');
+
+  let demoRunning = false;
+  let demoCancelled = false;
+
+  // basic positions for cursor relative to mock-browser area
+  async function moveCursorTo(elementSelectorOrNode, duration=700){
+    const mock = document.querySelector('.mock-browser');
+    const cursor = demoCursor;
+    cursor.style.display = 'block';
+
+    let el;
+    if(typeof elementSelectorOrNode === 'string') el = document.querySelector(elementSelectorOrNode);
+    else el = elementSelectorOrNode;
+
+    // fallback: center of mock browser if element missing
+    if(!el || !mock){ cursor.style.display='none'; return; }
+
+    // compute coordinates relative to mock
+    const mockRect = mock.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const targetX = (elRect.left + elRect.right) / 2 - mockRect.left;
+    const targetY = (elRect.top + elRect.bottom) / 2 - mockRect.top;
+
+    // animate from current pos to target
+    const start = performance.now();
+    const startX = parseFloat(cursor.dataset.x || (mockRect.width*0.5));
+    const startY = parseFloat(cursor.dataset.y || (mockRect.height*0.5));
+
+    return new Promise(resolve => {
+      function step(t){
+        const p = Math.min(1,(t-start)/duration);
+        const ease = p<.5 ? 2*p*p : -1 + (4 - 2*p)*p; // ease
+        const curX = startX + (targetX - startX)*ease;
+        const curY = startY + (targetY - startY)*ease;
+        cursor.style.left = curX+'px';
+        cursor.style.top = curY+'px';
+        cursor.style.transform = `translate(-50%,-50%) rotate(${18 - 12*ease}deg) scale(${1 - 0.05*ease})`;
+        cursor.dataset.x = curX; cursor.dataset.y = curY;
+        if(p<1) requestAnimationFrame(step);
+        else resolve();
+      }
+      requestAnimationFrame(step);
+    });
   }
-}
 
-function closeModal() {
-  document.getElementById("overlay").classList.remove("show");
-}
+  async function clickAt(targetEl){
+    // small click animation on target element
+    targetEl.classList.add('active-demo-click');
+    await sleep(120);
+    targetEl.classList.remove('active-demo-click');
+    // tiny cursor scale when clicking
+    demoCursor.style.transform += " scale(0.85)";
+    await sleep(110);
+    // restore transform (quick)
+    demoCursor.style.transform = demoCursor.style.transform.replace(" scale(0.85)","");
+  }
 
-// Chatbot animation
-function simulateChatbot(container) {
-  const steps = [
-    { type: "chat", text: "👋 Hello! How can I assist you today?" },
-    { type: "user", text: "I want to file a theft case." },
-    { type: "chat", text: "Got it! Let’s start by collecting some details about your case." },
-    { type: "chat", text: "Please provide date and location of incident." },
-  ];
-  let delay = 500;
-  steps.forEach(step => {
-    setTimeout(() => {
-      const bubble = document.createElement("div");
-      bubble.className = step.type === "chat" ? "chat-bubble" : "user-bubble";
-      bubble.textContent = step.text;
-      container.appendChild(bubble);
-      container.scrollTop = container.scrollHeight;
-    }, delay);
-    delay += 1500;
-  });
-}
+  // core demo sequence
+  async function startDemo(replay=false){
+    if(demoRunning) return;
+    demoRunning = true;
+    demoCancelled = false;
+    demoOverlay.classList.add('show');
 
-// Application animation
-function simulateApplication(container) {
-  const steps = [
-    { text: "1️⃣ Select your case type (e.g., Civil, Family, or Criminal)." },
-    { text: "2️⃣ Fill the guided form with your details." },
-    { text: "3️⃣ AI reviews and formats your case document automatically." },
-    { text: "4️⃣ Preview and download your final legal application." },
-    { text: "✅ You're ready to file your case!" },
-  ];
-  let delay = 500;
-  steps.forEach(step => {
-    setTimeout(() => {
-      const line = document.createElement("div");
-      line.className = "chat-bubble";
-      line.textContent = step.text;
-      container.appendChild(line);
-      container.scrollTop = container.scrollHeight;
-    }, delay);
-    delay += 1500;
-  });
-}
+    // reset views
+    frameHome.classList.remove('hidden'); frameHome.classList.add('visible');
+    frameHow.classList.add('hidden'); frameHow.classList.remove('visible');
+    miniModal.classList.remove('show');
+    miniSteps.innerHTML = '';
+
+    // place cursor center initially
+    const mock = document.querySelector('.mock-browser');
+    const mockRect = mock.getBoundingClientRect();
+    demoCursor.style.left = (mockRect.width*0.2) + 'px';
+    demoCursor.style.top = (mockRect.height*0.4) + 'px';
+    demoCursor.dataset.x = (mockRect.width*0.2);
+    demoCursor.dataset.y = (mockRect.height*0.4);
+    demoCursor.style.display = 'block';
+
+    // 1) show Home briefly
+    await sleep(800);
+    if(demoCancelled) return endDemo();
+
+    // 2) move cursor to "How It Works" (we simulate the small "How It Works" control inside home frame)
+    // compute a pseudo target by finding text element inside frameHome
+    // For simplicity, pick point near the top-left "How It Works" box in frameHome:
+    const pseudoHowTarget = frameHome.querySelector('.mini-left div'); // presence not critical
+    await moveCursorTo(pseudoHowTarget, 700);
+    if(demoCancelled) return endDemo();
+    await sleep(220);
+
+    // click => transition to How page
+    await clickAt(pseudoHowTarget || frameHome);
+    await sleep(250);
+    // crossfade to How page
+    frameHome.classList.remove('visible'); frameHome.classList.add('hidden');
+    frameHow.classList.remove('hidden'); frameHow.classList.add('visible');
+
+    if(demoCancelled) return endDemo();
+    await sleep(650);
+
+    // 3) now show How page & move cursor to Generate Application box
+    await moveCursorTo(miniAppBox, 700);
+    await sleep(180);
+    await clickAt(miniAppBox);
+    await sleep(300);
+
+    // 4) open mini-modal inside mock and simulate step-by-step
+    miniModal.classList.add('show');
+    miniModal.setAttribute('aria-hidden','false');
+
+    // simulate steps with animation lines (video like)
+    const steps = [
+      {title:'Step 1 — Choose case type', desc:'Select Criminal / Civil / Family'},
+      {title:'Step 2 — Fill guided form', desc:'Enter names, dates, facts — helper prompts appear'},
+      {title:'Step 3 — AI formats document', desc:'System drafts court-ready application automatically'},
+      {title:'Step 4 — Preview & Download', desc:'Review, download PDF and print for filing'}
+    ];
+    for(let i=0;i<steps.length;i++){
+      if(demoCancelled) return endDemo();
+      const el = document.createElement('div');
+      el.className = 'sim-step';
+      el.innerHTML = `<strong>${steps[i].title}</strong><div style="margin-top:6px;color:#334">${steps[i].desc}</div>`;
+      miniSteps.appendChild(el);
+      miniSteps.scrollTop = miniSteps.scrollHeight;
+      await sleep(900 + i*250); // staggered
+    }
+
+    // final highlight
+    if(!demoCancelled){
+      const finish = document.createElement('div');
+      finish.className='sim-step';
+      finish.innerHTML = `<strong style="color:green">✅ Done — Document Ready</strong><div style="margin-top:6px;color:#333">Download and file at court.</div>`;
+      miniSteps.appendChild(finish);
+      miniSteps.scrollTop = miniSteps.scrollHeight;
+    }
+
+    await sleep(900);
+    // end demo
+    endDemo();
+  }
+
+  function endDemo(){
+    demoCancelled = false;
+    demoRunning = false;
+    demoCursor.style.display = 'none';
+    miniModal.classList.remove('show');
+    demoOverlay.classList.remove('show');
+    // cleanup
+    miniSteps.innerHTML = '';
+  }
+
+  function stopDemo(){
+    demoCancelled = true;
+    // small fade then cleanup
+    setTimeout(()=> endDemo(),200);
+  }
+
+  // also allow clicking on manual boxes to open the previous modal (keeps earlier behavior)
+  async function openModal(type){
+    // open the modal area the old way (reuse simulation for manual)
+    demoOverlay.classList.add('show');
+    frameHome.classList.add('hidden'); frameHome.classList.remove('visible');
+    frameHow.classList.remove('hidden'); frameHow.classList.add('visible');
+    miniModal.classList.add('show');
+    miniModal.setAttribute('aria-hidden','false');
+    // populate based on type
+    miniSteps.innerHTML = '';
+    if(type === 'chatbot'){
+      document.getElementById('miniModalTitle').textContent = 'Chatbot — Quick Demo';
+      const chatSteps = [
+        {t:'Chatbot: Hello! How can I help?', d:'User: I want to file theft case.'},
+        {t:'Chatbot: Please provide date & location.', d:'User: 12 Jan, Market Road.'},
+        {t:'Chatbot: Done — I have the details.' , d:'Chatbot collects info and prepares form.'}
+      ];
+      for(let s of chatSteps){
+        const el = document.createElement('div');
+        el.className='sim-step';
+        el.innerHTML = `<strong>${s.t}</strong><div style="margin-top:6px;color:#334">${s.d}</div>`;
+        miniSteps.appendChild(el);
+      }
+    } else {
+      document.getElementById('miniModalTitle').textContent = 'Generate Application — Demo';
+      const steps = [
+        {t:'Select case: Criminal', d:'Pick category and template.'},
+        {t:'Fill: Facts & Parties', d:'Provide required fields.'},
+        {t:'AI drafts doc', d:'System formats, inserts headings.'},
+        {t:'Preview & Download', d:'Save as PDF and print.'}
+      ];
+      for(let s of steps){
+        const el = document.createElement('div');
+        el.className='sim-step';
+        el.innerHTML = `<strong>${s.t}</strong><div style="margin-top:6px;color:#334">${s.d}</div>`;
+        miniSteps.appendChild(el);
+      }
+    }
+  }
+  // expose to global (for onclick)
+  window.openModal = openModal;
+  window.stopDemo = stopDemo;
+
+  // optional quick open
+  document.getElementById('openChatBtn').addEventListener('click', ()=> openModal('chatbot'));
 </script>
 </body>
 </html>
