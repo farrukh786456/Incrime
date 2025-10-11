@@ -1,209 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>InCrime – System Workflows</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f5f6fa;
-      color: #222;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>How It Works – InCrime</title>
+<style>
+  :root{
+    --bg1:#eef6fb;
+    --bg2:#ffffff;
+    --accent:#0d2a3a;
+    --gold:#FFD700;
+    --card:#ffffff;
+  }
 
-    header {
-      background: #1a1a2e;
-      color: white;
-      text-align: center;
-      padding: 30px 0;
-    }
+  html,body{height:100%;margin:0;font-family:"Segoe UI",system-ui,-apple-system,SegoeUI,Roboto,"Helvetica Neue",Arial;}
+  body{
+    background: linear-gradient(135deg,var(--bg1),var(--bg2));
+    color:var(--accent);
+  }
 
-    header h1 {
-      margin: 0;
-      font-size: 28px;
-    }
+  /* Navbar (simple centered like before) */
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 56px;
+    background:#0d2a3a;
+    color:#fff;
+    position:sticky;top:0;z-index:50;
+    box-shadow:0 6px 18px rgba(13,42,58,0.2);
+  }
+  .logo{font-weight:700;font-size:20px;letter-spacing:0.4px}
+  nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+  nav a{color:#fff;text-decoration:none;opacity:0.95}
+  nav a:hover{color:var(--gold)}
 
-    .container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin: 60px 20px;
-      flex-wrap: wrap;
-    }
+  .hero{
+    text-align:center;padding:72px 10% 40px;
+  }
+  .hero h1{font-size:40px;margin:0 0 10px}
+  .hero p{color:#2b3b45;margin:0 0 28px;font-size:17px}
 
-    .card {
-      background: white;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      border-radius: 16px;
-      width: 280px;
-      text-align: center;
-      padding: 30px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
+  .grid{
+    display:flex;gap:32px;justify-content:center;flex-wrap:wrap;padding:20px 6%;
+    margin-bottom:60px;
+  }
 
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
+  .card{
+    width:370px;min-height:220px;background:#fff;
+    border-radius:16px;padding:28px;
+    box-shadow:0 8px 30px rgba(8,20,30,0.08);
+    transition:transform .38s,box-shadow .38s;cursor:pointer;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .card:hover{transform:translateY(-10px);box-shadow:0 18px 46px rgba(8,20,30,0.12)}
+  .card .icon{font-size:28px}
+  .card h3{margin:12px 0 8px;font-size:20px}
+  .card p{margin:0;color:#405660;line-height:1.4}
+  .card .cta{
+    margin-top:18px;align-self:flex-start;background:var(--gold);
+    border:none;padding:10px 16px;border-radius:10px;font-weight:700;
+    cursor:pointer;color:#06202a;
+  }
 
-    .card h2 {
-      margin-top: 15px;
-      color: #1a1a2e;
-    }
+  /* overlay modal */
+  .overlay{
+    position:fixed;inset:0;display:none;place-items:center;
+    background:rgba(0,0,0,0.55);z-index:120;
+    backdrop-filter: blur(6px);
+    padding:32px;
+  }
+  .panel{
+    width:min(1100px,98%);
+    height:min(85vh,900px);
+    background:#fff;
+    border-radius:14px;
+    box-shadow:0 30px 80px rgba(6,20,30,0.45);
+    display:grid;
+    grid-template-columns:400px 1fr;
+    overflow:hidden;
+  }
 
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 20px;
-    }
+  /* left column - steps */
+  .left{
+    padding:24px;border-right:1px solid rgba(0,0,0,0.05);
+    overflow-y:auto;
+  }
+  .left h3{margin-top:0;}
+  .step{
+    background:#f8fafc;
+    padding:12px;border-radius:8px;margin-bottom:10px;
+    cursor:pointer;transition:background .3s;
+  }
+  .step:hover{background:#eef5f9}
+  .step h4{margin:0;font-size:15px;color:#0d2a3a}
+  .step p{margin:4px 0 0;font-size:13px;color:#405660}
 
-    .panel {
-      background: #fff;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 950px;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 50px;
-      animation: fadeIn 0.3s ease;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
+  /* right content */
+  .right{
+    padding:24px;overflow-y:auto;
+  }
+  .right h3{margin-top:0;}
+  .content h3{margin-top:12px}
+  .content ol{padding-left:20px}
+  .content p, .content li{font-size:15px;line-height:1.5;color:#20343a}
 
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      background: #e63946;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      font-size: 20px;
-      cursor: pointer;
-    }
+  .close-x{
+    position:absolute;right:16px;top:12px;
+    background:none;border:none;color:#0d2a3a;
+    font-size:22px;cursor:pointer;
+  }
 
-    h3 {
-      color: #1a1a2e;
-      font-size: 26px;
-      margin-bottom: 10px;
-    }
-
-    h4 {
-      margin-top: 25px;
-      color: #1a1a2e;
-      font-size: 20px;
-    }
-
-    p, ul {
-      font-size: 17px;
-      line-height: 1.7;
-      color: #333;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-  </style>
+  footer{padding:18px;text-align:center;background:#0d2a3a;color:#fff;font-size:14px}
+  @media(max-width:900px){
+    .panel{grid-template-columns:1fr}
+    .left{display:none}
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>InCrime – System Working Demonstration</h1>
-  </header>
 
-  <div class="container">
-    <div class="card" onclick="openPanel('chatbot')">
-      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" width="80" alt="Chatbot Icon">
-      <h2>Chatbot Help</h2>
-    </div>
+<nav>
+  <div class="logo">⚖️ InCrime</div>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">How It Works</a></li>
+  </ul>
+</nav>
 
-    <div class="card" onclick="openPanel('generator')">
-      <img src="https://cdn-icons-png.flaticon.com/512/1152/1152910.png" width="80" alt="Generator Icon">
-      <h2>Generate Your Application</h2>
+<section class="hero">
+  <h1>How InCrime Works</h1>
+  <p>Click a card below to open the full technical "How it works" flow. Each step reveals with animation.</p>
+</section>
+
+<div class="grid">
+  <div class="card" onclick="openPanel('chatbot')">
+    <div>
+      <div class="icon">🧠</div>
+      <h3>Chatbot Help</h3>
+      <p>See detailed step-by-step working of chatbot: NLU, session, slot filling, APIs.</p>
     </div>
+    <button class="cta">Open Chatbot Flow</button>
   </div>
 
-  <div class="overlay" id="overlay">
-    <div class="panel" id="panelContent">
-      <button class="close-btn" onclick="closePanel()">×</button>
-      <div id="panelBody"></div>
+  <div class="card" onclick="openPanel('generator')">
+    <div>
+      <div class="icon">🧾</div>
+      <h3>Generate Application</h3>
+      <p>See how your details turn into a complete auto-generated legal document.</p>
+    </div>
+    <button class="cta">Open Generator Flow</button>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="panel">
+    <button class="close-x" onclick="closePanel()">✕</button>
+
+    <div class="left">
+      <h3>Flow Steps</h3>
+      <div id="stepsList"></div>
+    </div>
+
+    <div class="right">
+      <h3 id="panelTitle"></h3>
+      <div class="content" id="contentArea"></div>
     </div>
   </div>
+</div>
 
-  <script>
-    const chatbotHTML = String.raw`
-      <h3>🧠 Chatbot Help – How It Works</h3>
-      <h4>1. Start a Chat</h4>
-      <p>When the user clicks “Chatbot Help”, a chat window opens instantly. The system generates a unique session ID and loads the chatbot interface.</p>
+<footer>© 2025 InCrime</footer>
 
-      <h4>2. Ask or Select a Topic</h4>
-      <p>User can either type a question (e.g., “How to file a complaint?”) or choose an option like “Create Application” or “Legal Guidance”.</p>
+<script>
+const chatbotHTML = `
+<h3>🧠 Chatbot Help – How It Works</h3>
+<ol>
+<li><strong>1. Start Chat</strong><p>User clicks Chatbot → session ID created → welcome message appears.</p></li>
+<li><strong>2. Understand Intent</strong><p>Chatbot uses NLU to detect user question or selected button.</p></li>
+<li><strong>3. Collect Info</strong><p>Chatbot asks name, case type, details step-by-step.</p></li>
+<li><strong>4. Generate Reply</strong><p>Based on answers, chatbot gives guidance or sends data to generator.</p></li>
+<li><strong>5. Auto Form Fill</strong><p>Collected data sent to “Generate Application” page through API.</p></li>
+<li><strong>6. Keep Session</strong><p>Chat memory stored — user can continue chat later.</p></li>
+</ol>`;
 
-      <h4>3. Chatbot Guides You</h4>
-      <p>The chatbot starts a guided conversation, asking for details step-by-step such as name, case type, and description. All inputs are stored temporarily.</p>
+const generatorHTML = `
+<h3>📝 Generate Your Application – How It Works</h3>
+<ol>
+<li><strong>1. Page Opens</strong><p>Frontend loads generator; new application session starts.</p></li>
+<li><strong>2. Input Details</strong><p>User enters or auto-filled data from chatbot.</p></li>
+<li><strong>3. Validate Fields</strong><p>Frontend & backend check name, CNIC, etc.</p></li>
+<li><strong>4. Live Preview</strong><p>Form merges with legal template — live preview updates instantly.</p></li>
+<li><strong>5. Backend Processing</strong><p>Data sent to API, structured into formatted document.</p></li>
+<li><strong>6. Generate PDF</strong><p>Final layout converted into PDF or Word, downloadable instantly.</p></li>
+</ol>`;
 
-      <h4>4. Get Instant Answers</h4>
-      <p>Once enough information is received, the chatbot provides relevant legal info, document lists, or guides user to the “Generate Application” section.</p>
+function openPanel(mode){
+  const overlay = document.getElementById('overlay');
+  const contentArea = document.getElementById('contentArea');
+  const stepsList = document.getElementById('stepsList');
+  const panelTitle = document.getElementById('panelTitle');
+  overlay.style.display='grid';
 
-      <h4>5. Automatic Form Filling</h4>
-      <p>When the user proceeds to generate an application, all collected information is automatically sent to the form and pre-filled using backend integration.</p>
+  let html = mode==='chatbot'?chatbotHTML:generatorHTML;
+  panelTitle.innerText = mode==='chatbot'?'Chatbot Help':'Generate Your Application';
+  contentArea.innerHTML = html;
 
-      <h4>6. Continuous Help</h4>
-      <p>The chatbot saves session progress for 24 hours and allows users to resume later or connect with a human assistant if needed.</p>
-    `;
+  // steps sidebar
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+  const lis = temp.querySelectorAll('ol > li');
+  stepsList.innerHTML='';
+  lis.forEach((li,i)=>{
+    const s = document.createElement('div');
+    s.className='step';
+    s.innerHTML=`<h4>${li.querySelector('strong').innerText}</h4><p>${li.textContent.slice(0,80)}...</p>`;
+    s.onclick=()=>li.scrollIntoView({behavior:'smooth'});
+    stepsList.appendChild(s);
+  });
+}
 
-    const generatorHTML = String.raw`
-      <h3>📝 Generate Your Application – How It Works</h3>
-      <h4>1. Access the Generator</h4>
-      <p>When the user clicks “Generate Your Application”, a new interface opens, loading saved user details from chatbot (if available).</p>
+function closePanel(){
+  document.getElementById('overlay').style.display='none';
+}
+</script>
 
-      <h4>2. Input Collection</h4>
-      <p>The system shows structured input fields: name, case type, court details, and case description. Each field is auto-validated.</p>
-
-      <h4>3. Real-Time Data Binding</h4>
-      <p>As data is entered, it updates a hidden document structure in real time, preparing the final legal format.</p>
-
-      <h4>4. Auto Template Matching</h4>
-      <p>Based on case type, the system picks the correct legal template (e.g., Complaint, Bail, Appeal) from the backend database.</p>
-
-      <h4>5. Document Preview</h4>
-      <p>The user can view a live preview of their application, including legal wording and layout generated dynamically.</p>
-
-      <h4>6. Final Generation</h4>
-      <p>After review, clicking “Generate PDF” converts the document into an official layout with signature, date, and formatting.</p>
-
-      <h4>7. Save and Retrieve</h4>
-      <p>The final document is stored securely and can be downloaded or edited later through the “My Applications” section.</p>
-    `;
-
-    function openPanel(type) {
-      const overlay = document.getElementById('overlay');
-      const panelBody = document.getElementById('panelBody');
-      panelBody.innerHTML = (type === 'chatbot') ? chatbotHTML : generatorHTML;
-      overlay.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closePanel() {
-      document.getElementById('overlay').style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-
-    window.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closePanel();
-    });
-  </script>
 </body>
 </html>
