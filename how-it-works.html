@@ -1,241 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>How It Works – InCrime</title>
-<style>
-  :root{
-    --bg1:#eef6fb;
-    --bg2:#ffffff;
-    --accent:#0d2a3a;
-    --gold:#FFD700;
-  }
-  html,body{height:100%;margin:0;font-family:"Segoe UI",system-ui,-apple-system,SegoeUI,Roboto,"Helvetica Neue",Arial;}
-  body{
-    background:linear-gradient(135deg,var(--bg1),var(--bg2));
-    color:var(--accent);
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works – InCrime</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e9f0f5, #fdfdfd);
+      color: #0d2a3a;
+      overflow-x: hidden;
+    }
 
-  /* Navbar */
-  nav{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:16px 56px;
-    background:#0d2a3a;color:#fff;
-    position:sticky;top:0;z-index:50;
-    box-shadow:0 6px 18px rgba(13,42,58,0.2);
-  }
-  .logo{font-weight:700;font-size:20px;}
-  nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
-  nav a{color:#fff;text-decoration:none;}
-  nav a:hover{color:var(--gold)}
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 60px;
+      background: rgba(13, 42, 58, 0.95);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
 
-  .hero{text-align:center;padding:72px 10% 40px;}
-  .hero h1{font-size:40px;margin:0 0 10px}
-  .hero p{color:#2b3b45;margin:0 0 28px;font-size:17px}
+    nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
 
-  .grid{
-    display:flex;gap:32px;justify-content:center;flex-wrap:wrap;padding:20px 6%;
-    margin-bottom:60px;
-  }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+      margin-left: auto;
+      margin-right: 20px;
+    }
 
-  .card{
-    width:370px;min-height:220px;background:#fff;
-    border-radius:16px;padding:28px;
-    box-shadow:0 8px 30px rgba(8,20,30,0.08);
-    transition:transform .38s,box-shadow .38s;cursor:pointer;
-    display:flex;flex-direction:column;justify-content:space-between;
-  }
-  .card:hover{transform:translateY(-10px);box-shadow:0 18px 46px rgba(8,20,30,0.12)}
-  .card .icon{font-size:28px}
-  .card h3{margin:12px 0 8px;font-size:20px}
-  .card p{margin:0;color:#405660;line-height:1.4}
-  .card .cta{
-    margin-top:18px;align-self:flex-start;background:var(--gold);
-    border:none;padding:10px 16px;border-radius:10px;font-weight:700;
-    cursor:pointer;color:#06202a;
-  }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: 0.3s;
+    }
 
-  /* overlay */
-  .overlay{
-    position:fixed;inset:0;display:none;place-items:center;
-    background:rgba(0,0,0,0.55);z-index:120;
-    backdrop-filter:blur(6px);
-    padding:32px;
-  }
-  .panel{
-    width:min(1100px,98%);
-    height:min(85vh,900px);
-    background:#fff;border-radius:14px;
-    box-shadow:0 30px 80px rgba(6,20,30,0.45);
-    display:grid;grid-template-columns:400px 1fr;overflow:hidden;
-    position:relative;
-  }
+    nav ul li a:hover {
+      color: #FFD700;
+    }
 
-  .left{padding:24px;border-right:1px solid rgba(0,0,0,0.05);overflow-y:auto;}
-  .left h3{margin-top:0;}
-  .step{background:#f8fafc;padding:12px;border-radius:8px;margin-bottom:10px;
-        cursor:pointer;transition:background .3s;}
-  .step:hover{background:#eef5f9}
-  .step h4{margin:0;font-size:15px;color:#0d2a3a}
-  .step p{margin:4px 0 0;font-size:13px;color:#405660}
+    nav button {
+      background: #FFD700;
+      border: none;
+      color: #0d2a3a;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-  .right{padding:24px;overflow-y:auto;}
-  .right h3{margin-top:0;}
-  .content p, .content li{font-size:15px;line-height:1.5;color:#20343a}
-  .content{animation:fade .4s ease;}
-  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    nav button:hover {
+      background: #f4d03f;
+    }
 
-  .close-x{
-    position:absolute;right:16px;top:12px;background:none;border:none;
-    color:#0d2a3a;font-size:22px;cursor:pointer;
-  }
-  .back-btn{
-    position:absolute;left:16px;top:12px;background:var(--gold);border:none;
-    padding:6px 14px;border-radius:8px;cursor:pointer;font-weight:600;
-  }
+    .container {
+      text-align: center;
+      padding: 80px 10%;
+      min-height: 100vh;
+      transition: all 0.6s ease;
+    }
 
-  footer{padding:18px;text-align:center;background:#0d2a3a;color:#fff;font-size:14px}
-  @media(max-width:900px){.panel{grid-template-columns:1fr}.left{display:none}}
-</style>
+    .main-options {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-top: 60px;
+    }
+
+    .option-box {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 40px;
+      width: 300px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .option-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .option-box h2 {
+      font-size: 22px;
+      color: #0d2a3a;
+      margin-bottom: 15px;
+    }
+
+    .option-box p {
+      font-size: 16px;
+      color: #333;
+    }
+
+    /* Hidden detail section */
+    .detail-section {
+      display: none;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+      padding: 40px;
+      text-align: left;
+      animation: slideIn 0.8s ease forwards;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    @keyframes slideIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .detail-section h1 {
+      text-align: center;
+      color: #0d2a3a;
+    }
+
+    .detail-section pre {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #f9f9f9;
+      padding: 25px;
+      border-radius: 12px;
+      overflow-y: auto;
+      max-height: 75vh;
+      animation: fadeText 1.2s ease forwards;
+    }
+
+    @keyframes fadeText {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .back-btn {
+      display: block;
+      margin: 25px auto 0;
+      background: #FFD700;
+      color: #0d2a3a;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #f4d03f;
+    }
+
+    footer {
+      background: #0d2a3a;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 60px;
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">⚖️ InCrime</div>
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">How It Works</a></li>
-  </ul>
-</nav>
+  <nav>
+    <div class="logo">⚖️ InCrime</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#categories">Case Categories</a></li>
+      <li><a href="#">How It Works</a></li>
+      <li><a href="chatbot.html">Chatbot Help</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <button onclick="window.location.href='login.html'">Login</button>
+  </nav>
 
-<section class="hero">
-  <h1>How InCrime Works</h1>
-  <p>Click a card below to open the full technical "How it works" flow. Each step reveals with animation.</p>
-</section>
+  <div class="container">
+    <h1>How It Works</h1>
+    <p>Understand how InCrime automates legal help through Chatbot and Application Generation features.</p>
 
-<div class="grid" id="mainCards">
-  <div class="card" onclick="openPanel('chatbot')">
-    <div>
-      <div class="icon">🧠</div>
-      <h3>Chatbot Help</h3>
-      <p>See detailed step-by-step working of chatbot: NLU, session, slot filling, APIs.</p>
-    </div>
-    <button class="cta">Open Chatbot Flow</button>
-  </div>
+    <div class="main-options" id="mainOptions">
+      <div class="option-box" onclick="showDetail('chatbot')">
+        <h2>💬 Chatbot Help</h2>
+        <p>Learn how our chatbot guides you step-by-step to create legal applications.</p>
+      </div>
 
-  <div class="card" onclick="openPanel('generator')">
-    <div>
-      <div class="icon">🧾</div>
-      <h3>Generate Application</h3>
-      <p>See how your details turn into a complete auto-generated legal document.</p>
-    </div>
-    <button class="cta">Open Generator Flow</button>
-  </div>
-</div>
-
-<div class="overlay" id="overlay">
-  <div class="panel">
-    <button class="back-btn" onclick="closePanel()">← Back</button>
-    <button class="close-x" onclick="closePanel()">✕</button>
-
-    <div class="left">
-      <h3>Flow Steps</h3>
-      <div id="stepsList"></div>
+      <div class="option-box" onclick="showDetail('generate')">
+        <h2>📝 Generate Your Application</h2>
+        <p>See how InCrime instantly generates professional legal documents using AI.</p>
+      </div>
     </div>
 
-    <div class="right">
-      <h3 id="panelTitle"></h3>
-      <div class="content" id="contentArea"></div>
+    <!-- Chatbot Detail -->
+    <div class="detail-section" id="chatbotDetail">
+      <h1>💬 Chatbot Help – How It Works</h1>
+      <pre id="chatbotText"></pre>
+      <button class="back-btn" onclick="goBack()">← Back</button>
+    </div>
+
+    <!-- Generate Application Detail -->
+    <div class="detail-section" id="generateDetail">
+      <h1>📝 Generate Your Application – How It Works</h1>
+      <pre id="generateText"></pre>
+      <button class="back-btn" onclick="goBack()">← Back</button>
     </div>
   </div>
-</div>
 
-<footer>© 2025 InCrime</footer>
+  <footer>© 2025 InCrime | Empowering Legal Access for Everyone</footer>
 
-<script>
-const chatbotSteps = [
-  {
-    title:"1. Start a Chat",
-    text:`When a user clicks on the “Chatbot Help” button, a chat window opens and a unique session ID is created. 
-This ID helps track the conversation. The chatbot greets the user, e.g. “Hello! I’m your legal assistant.”`
-  },
-  {
-    title:"2. Ask or Select a Topic",
-    text:`User can type a question (like “How to write an FIR?”) or select predefined options.
-System uses Natural Language Understanding (NLU) to detect intent and keywords like “FIR”, “complaint”, etc.`
-  },
-  {
-    title:"3. Chatbot Guides You",
-    text:`Chatbot asks structured questions (Name, Case type, Details).
-All answers are temporarily stored in session memory and validated (e.g. empty or wrong input triggers re-ask).`
-  },
-  {
-    title:"4. Get Instant Answers",
-    text:`After collecting info, chatbot generates a relevant response.
-If user needs guidance → shows advice, if documents → lists requirements, if create app → sends data to generator.`
-  },
-  {
-    title:"5. Automatic Form Filling",
-    text:`Chatbot sends collected answers via API (JSON) to the “Generate Application” form which auto-fills and displays live preview.`
-  },
-  {
-    title:"6. Always Here to Help",
-    text:`Chat session stays active (e.g., 24 hours). User can resume chat later. 
-If chatbot can’t understand or needs human help → forwards to legal advisor or admin.`
-  }
+  <script>
+    const chatbotText = `💬 Chatbot Help – How It Works
+The InCrime Chatbot is an interactive system ... [Chatbot Help – How It Works
+The InCrime Chatbot is an interactive system designed to help users create legal applications and get guidance without needing expert help. It works step by step through a structured process that connects the frontend chatbot interface with the backend AI logic and database.
+💬 Step-by-Step Working (Detailed)
+1. Start a Chat
+When a user clicks on the “Chatbot Help” button on the website:
+•	A chatbot window opens on the screen.
+•	The system automatically starts a new chat session by generating a unique session ID for that user.
+•	This session ID helps the backend track the entire conversation.
+•	A welcome message appears like “Hello! I’m your legal assistant. How can I help you today?”
+So technically, this step initializes the chat interface and connects the user to the chatbot engine.
+________________________________________
+2. Ask or Select a Topic
+Once the chat starts, the user can:
+•	Type their question manually (e.g., “How do I write an FIR application?”), or
+•	Choose from predefined quick options such as:
+o	“Create an Application”
+o	“Know Required Documents”
+o	“Legal Guidance”
+Here, the system uses Natural Language Understanding (NLU) to detect what the user is asking.
+If the user chooses a button, the chatbot directly identifies the intent.
+If the user types a question, the backend analyzes the text, detects keywords like “FIR”, “complaint”, or “property case”, and decides the most relevant topic.
+So in this step, user intent and case type are detected.
+________________________________________
+3. Chatbot Guides You
+After understanding the intent, the chatbot starts a guided conversation.
+It asks the user simple, step-by-step questions such as:
+•	“Please enter your full name.”
+•	“Select your case type.”
+•	“Describe your case in a few lines.”
+Each answer the user gives is stored temporarily in the session memory (and saved to the database if needed).
+If the user types an invalid response (like leaving a field empty or typing a number instead of text), the chatbot asks again — this is input validation.
+So this step works like an interactive form, where data is collected gradually through chat messages.
+________________________________________
+4. Get Instant Answers
+Once enough information is collected, the chatbot automatically generates a reply using the stored data.
+Depending on what the user asks, it performs one of these actions:
+•	If the user requested legal guidance, it retrieves predefined legal information or AI-generated advice.
+•	If the user asked for required documents, it checks the case type and shows a list (e.g., “For an FIR, you need CNIC copy, written statement, and witness details.”).
+•	If the user wants to create an application, it passes all collected details to the “Generate Your Application” tool.
+At this stage, the chatbot and backend are connected — the backend uses the user’s answers to prepare structured data for the next process.
+________________________________________
+5. Automatic Form Filling
+If the user chooses to generate a legal application, the chatbot sends all collected answers (like name, case type, details, etc.) directly to the application generator form.
+This is done through an API or a data transfer call:
+•	The chatbot sends data to the form as JSON.
+•	The “Generate Your Application” page receives this data and automatically fills in all fields.
+•	The user can then view the live-generated document and make changes if needed.
+This step essentially involves data handover between the chatbot and the document generator.
+________________________________________
+6. Always Here to Help
+During or after the process:
+•	The chatbot keeps the chat session active for a fixed time (like 24 hours).
+•	The user can return later and continue from where they left off — the session data is restored from the database.
+•	If the chatbot cannot understand the question or if the user requests human help, the system automatically forwards the chat to a human legal advisor or admin support.
+So this step ensures continuous help and chat memory, allowing users to stay guided throughout their case creation.
 ];
 
-const chatbotIntro = `
-<h3>🧠 Chatbot Help – How It Works</h3>
-<p>The InCrime Chatbot is an interactive system designed to help users create legal applications 
-and get guidance without needing expert help. It connects frontend chatbot interface with backend AI and database.</p>
-<p><strong>💬 Step-by-Step Working (Click steps on left to view details)</strong></p>
-`;
+    const generateText = `📝 Generate Your Application – How It Works
+The “Generate Your Application” feature in InCrime automatically ... [📝 Generate Your Application – How It Works
+The “Generate Your Application” feature in InCrime automatically creates professional legal documents based on the answers provided by the user (either through the chatbot or direct form entry).
+It combines an interactive form system, AI-based text generation, and a document rendering engine to prepare the final application instantly.
+________________________________________
+⚙️ Step-by-Step Working (Detailed)
+1. User Enters the Generate Section
+When the user clicks on the “Generate Your Application” button:
+•	The frontend loads the “Application Generator” interface.
+•	If the user came from the chatbot, the system already has their collected information (like name, case type, and description).
+•	A new generation session starts, identified by a unique application_id stored in the backend.
+So this step initializes the generator page and prepares to receive user data.
+________________________________________
+2. Data Input and Case Type Selection
+Once the page loads:
+•	The user either manually enters details or the system auto-fills them (from chatbot data).
+•	The system asks for step-by-step details such as:
+o	Full Name
+o	CNIC (optional)
+o	Case Type (e.g., FIR, Complaint, Property Dispute, etc.)
+o	Description of Case or Incident
+o	Relief or Action Requested
+Each input is saved automatically (auto-save system) after every change — so no data is lost even if the user refreshes the page.
+________________________________________
+3. Field Validation
+As the user fills in the information:
+•	Each input is checked using frontend validation (for empty fields, invalid CNIC format, etc.).
+•	After validation, the data is also verified on the backend for accuracy and safety.
+•	This ensures the final application is complete and free of missing information.
+For example:
+•	If the “Case Description” is too short, the system asks the user to write more detail.
+•	If the “Name” contains invalid characters, it shows an error message immediately.
+________________________________________
+4. Live Preview Creation
+After the user starts filling the form, the system dynamically creates a live preview of the application on the same page.
+Here’s how it works:
+•	The form data is merged into a predefined application template (based on the selected case type).
+•	The right side of the page shows a real-time typing animation or live document preview, where users can see their information appear inside the legal format.
+For example:
+“To,
+The Station House Officer,
+City Police Station,
+Subject: Application for FIR...”
+(Automatically continues using the user’s answers)
+This live preview helps the user visualize the final document instantly as they type.
+________________________________________
+5. Backend Processing and Auto Text Generation
+When all inputs are complete:
+•	The frontend sends the user’s data (in JSON format) to the backend API endpoint, e.g. /applications/generate.
+•	The backend:
+1.	Retrieves the correct template based on the case type.
+2.	Inserts user details into placeholders (like Name, Address, Case Details, etc.).
+3.	Adds professional legal phrasing automatically using AI rules or stored templates.
+This converts simple user answers into a well-written, official-style legal application.
+________________________________________
+6. Document Formatting
+After the content is generated, the backend formats the entire text into a professional layout:
+•	Adds proper margins, spacing, and alignment.
+•	Inserts the user’s name and date at the bottom.
+•	Ensures the application follows the correct structure (address, subject, body, closing).
+•	Converts everything into a final printable layout.
+This step ensures the document looks like a proper court or police application.
+________________________________________
+7. Review and Editing
+Once the preview is ready:
+•	The user can scroll through the generated document on-screen.
+•	They can edit any field (like changing their name, modifying details, or adding extra lines).
+•	Any change made instantly updates both the form and the preview.
+So this step gives full control to the user before finalizing the application.
+________________________________________
+8. Document Generation
+When the user clicks “Generate PDF” or “Download Application”:
+•	The frontend sends a final request to the backend with all form data.
+•	The backend creates a final version of the document:
+o	Converts it into PDF or Word (.docx) format using a rendering engine.
+o	Stores a copy on the server (for record purposes).
+o	Returns a download link or auto-downloads the file.
+At this point, the legal application is fully generated and ready to print or share.
+________________________________________
+9. Save and Reopen
+Every generated file and its data are linked to the user’s account or session ID.
+•	If the user returns later, they can open “My Applications” and view, edit, or re-download their old documents.
+•	The system keeps saved versions (e.g., Draft → Final → Updated).
+So this ensures users never lose their progress and can reuse their documents anytime.
+________________________________________
+10. Integration with Chatbot
+If the user came from the chatbot:
+•	The chatbot automatically sends all the answers it collected (like name, case type, case details) to this generator.
+•	The generator then auto-fills the form instantly — the user just reviews and clicks “Generate”.
+•	This seamless transfer reduces typing and speeds up document creation.
 
-const generatorHTML = `
-<h3>📝 Generate Your Application – How It Works</h3>
-<ol>
-<li><strong>1. Page Opens:</strong> New session starts.</li>
-<li><strong>2. Input Details:</strong> User enters or auto-filled data from chatbot.</li>
-<li><strong>3. Validate Fields:</strong> Checks name, CNIC, etc.</li>
-<li><strong>4. Live Preview:</strong> Form merges with legal template.</li>
-<li><strong>5. Backend Processing:</strong> Data structured into formatted document.</li>
-<li><strong>6. Generate PDF:</strong> Convert into PDF or Word instantly.</li>
-</ol>`;
+]`;
 
-function openPanel(mode){
-  document.getElementById('overlay').style.display='grid';
-  const content = document.getElementById('contentArea');
-  const stepsList = document.getElementById('stepsList');
-  const title = document.getElementById('panelTitle');
+    function showDetail(type) {
+      document.getElementById('mainOptions').style.display = 'none';
+      if (type === 'chatbot') {
+        document.getElementById('chatbotDetail').style.display = 'block';
+        typeWriter('chatbotText', chatbotText);
+      } else {
+        document.getElementById('generateDetail').style.display = 'block';
+        typeWriter('generateText', generateText);
+      }
+    }
 
-  stepsList.innerHTML='';
-  content.innerHTML='';
-  
-  if(mode==='chatbot'){
-    title.textContent='Chatbot Help';
-    content.innerHTML = chatbotIntro;
-    chatbotSteps.forEach((s,i)=>{
-      const div = document.createElement('div');
-      div.className='step';
-      div.innerHTML=`<h4>${s.title}</h4><p>${s.text.slice(0,80)}...</p>`;
-      div.onclick=()=>{
-        document.querySelectorAll('.step').forEach(st=>st.style.background='#f8fafc');
-        div.style.background='#e7f2fb';
-        content.innerHTML=`<h3>${s.title}</h3><p>${s.text}</p>`;
-      };
-      stepsList.appendChild(div);
-    });
-  } else {
-    title.textContent='Generate Your Application';
-    content.innerHTML=generatorHTML;
-  }
-}
+    function goBack() {
+      document.getElementById('chatbotDetail').style.display = 'none';
+      document.getElementById('generateDetail').style.display = 'none';
+      document.getElementById('mainOptions').style.display = 'flex';
+    }
 
-function closePanel(){
-  document.getElementById('overlay').style.display='none';
-}
-</script>
+    // Typewriter animation
+    function typeWriter(elementId, text, i = 0) {
+      if (i < text.length) {
+        document.getElementById(elementId).textContent += text.charAt(i);
+        setTimeout(() => typeWriter(elementId, text, i + 1), 10);
+      }
+    }
+  </script>
 </body>
 </html>
