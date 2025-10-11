@@ -1,215 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>How It Works – InCrime</title>
-<style>
-  :root{
-    --bg1:#eef6fb;
-    --bg2:#ffffff;
-    --accent:#0d2a3a;
-    --gold:#FFD700;
-    --card:#ffffff;
-    --glass: rgba(255,255,255,0.6);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InCrime – System Workflows</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f6fa;
+      color: #222;
+    }
 
-  html,body{height:100%;margin:0;font-family:"Segoe UI",system-ui,-apple-system,SegoeUI,Roboto,"Helvetica Neue",Arial;}
-  body{
-    background: linear-gradient(135deg,var(--bg1),var(--bg2));
-    color:var(--accent);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
+    header {
+      background: #1a1a2e;
+      color: white;
+      text-align: center;
+      padding: 30px 0;
+    }
 
-  nav{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:16px 56px;background:linear-gradient(90deg, rgba(13,42,58,0.95), rgba(13,42,58,0.95));
-    color:#fff;position:sticky;top:0;z-index:50;box-shadow:0 6px 18px rgba(13,42,58,0.08);
-  }
-  .logo{font-weight:700;font-size:20px;letter-spacing:0.4px}
-  nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
-  nav a{color:#fff;text-decoration:none;opacity:0.95}
-  nav a:hover{color:var(--gold)}
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
 
-  .hero{
-    text-align:center;padding:72px 10% 40px;
-  }
-  .hero h1{font-size:40px;margin:0 0 10px}
-  .hero p{color:#2b3b45;margin:0 0 28px;font-size:17px}
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 60px 20px;
+      flex-wrap: wrap;
+    }
 
-  .grid{
-    display:flex;gap:32px;justify-content:center;flex-wrap:wrap;padding:20px 6%;
-    margin-bottom:60px;
-  }
+    .card {
+      background: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-radius: 16px;
+      width: 280px;
+      text-align: center;
+      padding: 30px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
 
-  .card{
-    width:370px;min-height:220px;background:linear-gradient(180deg,rgba(255,255,255,0.9),var(--card));
-    border-radius:16px;padding:28px;box-shadow:0 8px 30px rgba(8,20,30,0.08);
-    transition:transform .38s cubic-bezier(.2,.9,.25,1),box-shadow .38s;cursor:pointer;position:relative;overflow:hidden;
-    display:flex;flex-direction:column;justify-content:space-between;
-  }
-  .card:hover{transform:translateY(-10px);box-shadow:0 18px 46px rgba(8,20,30,0.12)}
-  .card .icon{font-size:28px}
-  .card h3{margin:12px 0 8px;font-size:20px}
-  .card p{margin:0;color:#405660;line-height:1.4}
-  .card .cta{
-    margin-top:18px;align-self:flex-start;background:var(--gold);border:none;padding:10px 16px;border-radius:10px;font-weight:700;cursor:pointer;color:#06202a;
-    box-shadow:0 6px 18px rgba(255,183,3,0.18);
-  }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
 
-  /* overlay modal */
-  .overlay{
-    position:fixed;inset:0;display:none;place-items:center;background:linear-gradient(180deg,rgba(5,10,15,0.45),rgba(5,10,15,0.6));
-    z-index:120;padding:32px;backdrop-filter: blur(5px);
-  }
-  .panel{
-    width:min(1100px,98%);height:min(80vh,860px);background:linear-gradient(180deg,#fff,#fbfdff);
-    border-radius:14px;box-shadow:0 30px 80px rgba(6,20,30,0.45);display:grid;grid-template-columns:420px 1fr;overflow:hidden;
-  }
+    .card h2 {
+      margin-top: 15px;
+      color: #1a1a2e;
+    }
 
-  /* left column */
-  .left{
-    padding:24px 22px;border-right:1px solid rgba(10,20,25,0.04);background:linear-gradient(180deg, rgba(13,42,58,0.02), rgba(13,42,58,0.01));
-    display:flex;flex-direction:column;gap:14px;
-  }
-  .left .mini-title{font-weight:700;color:var(--accent);font-size:18px}
-  .steps{flex:1;overflow:auto;padding-right:6px}
-  .step{
-    background:linear-gradient(180deg,#ffffff,#f7fbff);padding:12px;border-radius:10px;margin-bottom:12px;border:1px solid rgba(8,20,30,0.04);
-    opacity:0;transform:translateY(12px);transition:all .45s cubic-bezier(.2,.95,.25,1);
-  }
-  .step.show{opacity:1;transform:none}
-  .step h4{margin:0 0 6px;font-size:15px}
-  .step p{margin:0;color:#324b55;font-size:14px;line-height:1.45;white-space:pre-wrap}
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
 
-  /* right column */
-  .right{padding:28px;display:flex;flex-direction:column;gap:10px;}
-  .right .title{font-size:20px;font-weight:700}
-  .right .sub{color:#5a7680;font-size:13px}
-  .content{
-    margin-top:12px;flex:1;overflow:auto;padding-right:10px;
-    background:linear-gradient(180deg, rgba(13,42,58,0.02), rgba(13,42,58,0.01));
-    border-radius:10px;padding:18px;border:1px solid rgba(8,20,30,0.03);
-  }
+    .panel {
+      background: #fff;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 950px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 50px;
+      animation: fadeIn 0.3s ease;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
 
-  .content h3{margin-top:6px;margin-bottom:10px}
-  .content p, .content li{color:#20343a;font-size:15px;line-height:1.6;white-space:pre-wrap}
-  .content ol{padding-left:18px;margin:6px 0 12px}
-  .content .reveal{opacity:0;transform:translateY(8px);transition:all .45s cubic-bezier(.2,.95,.25,1)}
-  .content .reveal.show{opacity:1;transform:none}
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: #e63946;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      font-size: 20px;
+      cursor: pointer;
+    }
 
-  .close-x{position:absolute;right:16px;top:12px;cursor:pointer;background:transparent;border:none;font-size:22px;color:#12303a}
+    h3 {
+      color: #1a1a2e;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
 
-  footer{padding:18px;text-align:center;background:linear-gradient(90deg,#0d2a3a,#0b2630);color:#fff;font-size:14px}
-  .steps::-webkit-scrollbar,.content::-webkit-scrollbar{width:8px}
-  .steps::-webkit-scrollbar-thumb,.content::-webkit-scrollbar-thumb{background:linear-gradient(90deg,#ccdbe4,#a7c0cc);border-radius:8px}
-  @media (max-width:980px){
-    .panel{grid-template-columns:1fr; height:88vh}
-    .left{display:none}
-  }
-</style>
+    h4 {
+      margin-top: 25px;
+      color: #1a1a2e;
+      font-size: 20px;
+    }
+
+    p, ul {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>InCrime – System Working Demonstration</h1>
+  </header>
 
-<nav>
-  <div class="logo">⚖️ InCrime</div>
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">How It Works</a></li>
-  </ul>
-</nav>
-
-<section class="hero">
-  <h1>How InCrime Works</h1>
-  <p>Click a card below to open the full technical "How it works" flow. Each step reveals in a smooth animated sequence.</p>
-</section>
-
-<div class="grid">
-  <div class="card" onclick="openPanel('chatbot')">
-    <div>
-      <div class="icon">🧠</div>
-      <h3>Chatbot Help</h3>
-      <p>Open the detailed technical flow for Chatbot working.</p>
+  <div class="container">
+    <div class="card" onclick="openPanel('chatbot')">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" width="80" alt="Chatbot Icon">
+      <h2>Chatbot Help</h2>
     </div>
-    <button class="cta">Open Chatbot Flow</button>
-  </div>
 
-  <div class="card" onclick="openPanel('generator')">
-    <div>
-      <div class="icon">🧾</div>
-      <h3>Generate Application</h3>
-      <p>Open the detailed technical flow for Application Generator.</p>
-    </div>
-    <button class="cta">Open Generator Flow</button>
-  </div>
-</div>
-
-<div class="overlay" id="overlay">
-  <div class="panel">
-    <button class="close-x" onclick="closePanel()">✕</button>
-    <div class="left">
-      <div class="mini-title">Flow Steps</div>
-      <div class="steps" id="stepsList"></div>
-      <div style="font-size:13px;color:#4a6a73;padding-top:8px">Tip: Click any step to jump.</div>
-    </div>
-    <div class="right">
-      <div class="title" id="panelTitle"></div>
-      <div class="sub" id="panelSub"></div>
-      <div class="content" id="contentArea"></div>
+    <div class="card" onclick="openPanel('generator')">
+      <img src="https://cdn-icons-png.flaticon.com/512/1152/1152910.png" width="80" alt="Generator Icon">
+      <h2>Generate Your Application</h2>
     </div>
   </div>
-</div>
 
-<footer>© 2025 InCrime</footer>
+  <div class="overlay" id="overlay">
+    <div class="panel" id="panelContent">
+      <button class="close-btn" onclick="closePanel()">×</button>
+      <div id="panelBody"></div>
+    </div>
+  </div>
 
-<script>
-const chatbotHTML = String.raw`YOUR FULL CHATBOT HTML CONTENT HERE`;  
-const generatorHTML = String.raw`YOUR FULL GENERATOR HTML CONTENT HERE`;
+  <script>
+    const chatbotHTML = String.raw`
+      <h3>🧠 Chatbot Help – How It Works</h3>
+      <h4>1. Start a Chat</h4>
+      <p>When the user clicks “Chatbot Help”, a chat window opens instantly. The system generates a unique session ID and loads the chatbot interface.</p>
 
-// Copy both chatbotHTML and generatorHTML content blocks from your previous message here.
-// Then paste everything exactly inside these String.raw template literals.
-// This will fix all "unexpected token" bugs from long HTML strings.
+      <h4>2. Ask or Select a Topic</h4>
+      <p>User can either type a question (e.g., “How to file a complaint?”) or choose an option like “Create Application” or “Legal Guidance”.</p>
 
-function buildSteps(html){
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = html;
-  const lis = wrapper.querySelectorAll('ol > li');
-  return Array.from(lis).map((li,i)=>({title:li.querySelector('strong')?.innerText||'Step '+(i+1),content:li.innerHTML}));
-}
+      <h4>3. Chatbot Guides You</h4>
+      <p>The chatbot starts a guided conversation, asking for details step-by-step such as name, case type, and description. All inputs are stored temporarily.</p>
 
-const overlay=document.getElementById('overlay');
-const contentArea=document.getElementById('contentArea');
-const stepsList=document.getElementById('stepsList');
-const panelTitle=document.getElementById('panelTitle');
-const panelSub=document.getElementById('panelSub');
+      <h4>4. Get Instant Answers</h4>
+      <p>Once enough information is received, the chatbot provides relevant legal info, document lists, or guides user to the “Generate Application” section.</p>
 
-function openPanel(mode){
-  overlay.style.display='grid';
-  let html,title,sub;
-  if(mode==='chatbot'){title='Chatbot Help – Working';sub='Frontend, Session, NLU, Dialog';html=chatbotHTML;}
-  else{title='Generate Application – Working';sub='Form, Preview, AI, PDF';html=generatorHTML;}
-  panelTitle.innerText=title;panelSub.innerText=sub;
+      <h4>5. Automatic Form Filling</h4>
+      <p>When the user proceeds to generate an application, all collected information is automatically sent to the form and pre-filled using backend integration.</p>
 
-  const steps=buildSteps(html);
-  stepsList.innerHTML='';
-  steps.forEach((s,i)=>{
-    const div=document.createElement('div');
-    div.className='step';
-    div.innerHTML=`<h4>${i+1}. ${s.title}</h4><p>${(s.content||'').replace(/<[^>]+>/g,'').slice(0,150)}...</p>`;
-    div.addEventListener('click',()=>jumpToStep(i));
-    stepsList.appendChild(div);
-    setTimeout(()=>div.classList.add('show'),80*i+150);
-  });
-  contentArea.innerHTML=html;
-  setTimeout(()=>{contentArea.querySelectorAll('h3,p,li').forEach((el,i)=>{el.classList.add('reveal');setTimeout(()=>el.classList.add('show'),50*i);});},200);
-}
+      <h4>6. Continuous Help</h4>
+      <p>The chatbot saves session progress for 24 hours and allows users to resume later or connect with a human assistant if needed.</p>
+    `;
 
-function closePanel(){overlay.style.display='none';stepsList.innerHTML='';contentArea.innerHTML='';}
-function jumpToStep(i){const li=contentArea.querySelectorAll('ol > li')[i];if(!li)return;contentArea.scrollTo({top:li.offsetTop-10,behavior:'smooth'});}
-overlay.addEventListener('click',e=>{if(e.target===overlay)closePanel();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closePanel();});
-</script>
+    const generatorHTML = String.raw`
+      <h3>📝 Generate Your Application – How It Works</h3>
+      <h4>1. Access the Generator</h4>
+      <p>When the user clicks “Generate Your Application”, a new interface opens, loading saved user details from chatbot (if available).</p>
 
+      <h4>2. Input Collection</h4>
+      <p>The system shows structured input fields: name, case type, court details, and case description. Each field is auto-validated.</p>
+
+      <h4>3. Real-Time Data Binding</h4>
+      <p>As data is entered, it updates a hidden document structure in real time, preparing the final legal format.</p>
+
+      <h4>4. Auto Template Matching</h4>
+      <p>Based on case type, the system picks the correct legal template (e.g., Complaint, Bail, Appeal) from the backend database.</p>
+
+      <h4>5. Document Preview</h4>
+      <p>The user can view a live preview of their application, including legal wording and layout generated dynamically.</p>
+
+      <h4>6. Final Generation</h4>
+      <p>After review, clicking “Generate PDF” converts the document into an official layout with signature, date, and formatting.</p>
+
+      <h4>7. Save and Retrieve</h4>
+      <p>The final document is stored securely and can be downloaded or edited later through the “My Applications” section.</p>
+    `;
+
+    function openPanel(type) {
+      const overlay = document.getElementById('overlay');
+      const panelBody = document.getElementById('panelBody');
+      panelBody.innerHTML = (type === 'chatbot') ? chatbotHTML : generatorHTML;
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePanel() {
+      document.getElementById('overlay').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePanel();
+    });
+  </script>
 </body>
 </html>
