@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Help – InCrime</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #eef3f8, #ffffff);
+      color: #0d2a3a;
+      overflow-x: hidden;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 60px;
+      background: rgba(13, 42, 58, 0.95);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #f9f9f9;
+      padding: 25px;
+      border-radius: 12px;
+      overflow-y: auto;
+      max-height: 70vh;
+    }
+
+    .back-btn {
+      display: block;
+      margin: 25px auto 0;
+      background: #FFD700;
+      color: #0d2a3a;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #f4d03f;
+    }
+
+    footer {
+      background: #0d2a3a;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">⚖️ InCrime</div>
+  </nav>
+
+  <div class="content">
+    <h1>💬 Chatbot Help – How It Works</h1>
+    <pre id="chatbotText"></pre>
+    <button class="back-btn" onclick="window.location.href='how-it-works.html'">← Back</button>
+  </div>
+
+  <footer>© 2025 InCrime | Empowering Legal Access for Everyone</footer>
+
+  <script>
+    const chatbotText = `💬 Chatbot Help – How It Works
+The InCrime Chatbot helps you create legal applications step by step without needing expert help.
+It connects the frontend chatbot interface with backend AI logic and the legal database.
+
+⚙️ Step-by-Step Working:
+
+1️⃣ Start a Chat
+When the user clicks “Chatbot Help”:
+• A chatbot window opens on the screen.
+• The system starts a new chat session with a unique ID.
+• The bot greets: “Hello! I’m your legal assistant. How can I help you today?”
+
+2️⃣ Choose or Type a Query
+The user can:
+• Type a question (e.g., “How to write an FIR?”), or
+• Select from quick buttons (Create Application / Legal Guidance).
+The chatbot detects intent using AI/NLU and picks the correct topic.
+
+3️⃣ Guided Question Flow
+The chatbot asks:
+• “Please enter your full name.”
+• “Select your case type.”
+• “Describe your issue.”
+All answers are stored safely in session memory and validated step by step.
+
+4️⃣ Get Instant Answers
+Based on collected info:
+• If guidance requested → Shows relevant legal steps.
+• If document requested → Sends collected info to the “Generate Application” system.
+
+5️⃣ Data Transfer to Generator
+When ready, chatbot sends all user data (name, case type, description) to the document generator via secure API.
+The application form auto-fills — user can preview or download it.
+
+6️⃣ Smart Memory & Human Help
+Chat sessions stay active for 24 hours.
+If chatbot is confused, it forwards to a human legal advisor automatically.
+
+✅ That’s how InCrime Chatbot makes legal guidance simple, instant, and human-free where possible.`;
+
+    // Typewriter animation
+    function typeWriter(elementId, text, i = 0) {
+      if (i < text.length) {
+        document.getElementById(elementId).textContent += text.charAt(i);
+        setTimeout(() => typeWriter(elementId, text, i + 1), 15);
+      }
+    }
+
+    typeWriter("chatbotText", chatbotText);
+  </script>
+</body>
+</html>
