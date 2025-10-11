@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Application – InCrime</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f3f6f9, #ffffff);
+      color: #0d2a3a;
+      overflow-x: hidden;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 60px;
+      background: rgba(13, 42, 58, 0.95);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #f9f9f9;
+      padding: 25px;
+      border-radius: 12px;
+      overflow-y: auto;
+      max-height: 70vh;
+    }
+
+    .back-btn {
+      display: block;
+      margin: 25px auto 0;
+      background: #FFD700;
+      color: #0d2a3a;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #f4d03f;
+    }
+
+    footer {
+      background: #0d2a3a;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">⚖️ InCrime</div>
+  </nav>
+
+  <div class="content">
+    <h1>📝 Generate Your Application – How It Works</h1>
+    <pre id="generateText"></pre>
+    <button class="back-btn" onclick="window.location.href='how-it-works.html'">← Back</button>
+  </div>
+
+  <footer>© 2025 InCrime | Empowering Legal Access for Everyone</footer>
+
+  <script>
+    const generateText = `📝 Generate Your Application – How It Works
+This tool auto-creates professional legal applications based on your answers.
+
+⚙️ Step-by-Step Working:
+
+1️⃣ Enter the Generate Section
+When user clicks “Generate Your Application”:
+• Page opens with input fields (Name, Case Type, Description, etc.)
+• If chatbot already collected data, fields auto-fill instantly.
+
+2️⃣ Input & Validation
+User fills in or edits information.
+Each field is validated (no empty inputs, correct CNIC format, etc.)
+System auto-saves after each change — no data loss on refresh.
+
+3️⃣ Live Preview
+As you type, a live application preview appears beside the form.
+Your inputs (like name and case details) dynamically fill the official template.
+
+4️⃣ Backend Processing
+After all inputs complete:
+• Frontend sends data to backend API.
+• Backend injects info into legal templates.
+• AI refines text to professional legal tone.
+
+5️⃣ Formatting & Document Generation
+System adds margins, spacing, legal structure, and user name/date.
+Document converts to printable PDF or Word format instantly.
+
+6️⃣ Save & Edit Later
+All generated files link to your user account.
+You can reopen, edit, or download anytime.
+
+✅ This is how InCrime transforms your simple answers into official, court-ready documents in seconds.`;
+
+    function typeWriter(elementId, text, i = 0) {
+      if (i < text.length) {
+        document.getElementById(elementId).textContent += text.charAt(i);
+        setTimeout(() => typeWriter(elementId, text, i + 1), 15);
+      }
+    }
+
+    typeWriter("generateText", generateText);
+  </script>
+</body>
+</html>
