@@ -1,211 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How It Works – InCrime</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #e9f0f5, #fdfdfd);
-      color: #0d2a3a;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How It Works – InCrime</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #e9f0f5, #fdfdfd);
+  color: #0d2a3a;
+  overflow-x: hidden;
+}
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 60px;
-      background: rgba(13, 42, 58, 0.95);
-      color: #fff;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(8px);
-    }
-
-    nav .logo {
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-  nav ul {
+/* Navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 60px;
+  background: rgba(13, 42, 58, 0.95);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+nav .logo { font-size: 24px; font-weight: bold; }
+nav ul {
   list-style: none;
   display: flex;
   gap: 25px;
   margin: 0;
   padding: 0;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.3s;
+}
+nav ul li a:hover { color: #FFD700; }
+nav button {
+  background: #FFD700;
+  border: none;
+  color: #0d2a3a;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+nav button:hover { background: #f4d03f; }
+
+/* Container */
+.container {
+  text-align: center;
+  padding: 80px 10%;
+}
+h1 {
+  font-size: 42px;
+  color: #0d2a3a;
+  margin-bottom: 15px;
+}
+p {
+  font-size: 18px;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  color: #333;
+}
+
+/* Boxes Section */
+.boxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+.box {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  padding: 30px;
+  width: 280px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeUp 1.5s ease forwards;
+  opacity: 0;
+}
+.box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+@keyframes fadeUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.icon {
+  font-size: 50px;
+  margin-bottom: 10px;
+  color: #FFD700;
+}
+
+/* Modal (overlay animation) */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(13,42,58,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 20;
+}
+.overlay.show {
+  visibility: visible;
+  opacity: 1;
+}
+.modal {
+  background: white;
+  border-radius: 20px;
+  width: 80%;
+  max-width: 700px;
+  padding: 40px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  animation: popIn 0.5s ease;
+  position: relative;
+}
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.modal h2 {
+  color: #0d2a3a;
+}
+.close-btn {
+  position: absolute;
+  top: 15px; right: 15px;
+  background: #FFD700;
+  border: none;
+  border-radius: 50%;
+  width: 35px; height: 35px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: #0d2a3a;
+  transition: 0.3s;
+}
+.close-btn:hover { background: #f4d03f; }
+
+/* Mini simulation screen */
+.simulation {
+  background: #f5f5f5;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  margin-top: 20px;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  font-size: 15px;
+  color: #333;
+}
+.chat-bubble {
+  background: #0d2a3a;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 10px 10px 10px 0;
+  margin: 10px 0;
+  width: fit-content;
+  animation: slideInLeft 0.6s ease forwards;
+}
+.user-bubble {
+  background: #FFD700;
+  color: #0d2a3a;
+  border-radius: 10px 10px 0 10px;
   margin-left: auto;
-  margin-right: 20px;
-  }
+  animation: slideInRight 0.6s ease forwards;
+}
+@keyframes slideInLeft { from { transform: translateX(-40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideInRight { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-    nav ul li a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav ul li a:hover {
-      color: #FFD700;
-    }
-
-    nav button {
-      background: #FFD700;
-      border: none;
-      color: #0d2a3a;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    nav button:hover {
-      background: #f4d03f;
-    }
-
-    .container {
-      text-align: center;
-      padding: 80px 10%;
-    }
-
-    h1 {
-      font-size: 42px;
-      color: #0d2a3a;
-      margin-bottom: 15px;
-    }
-
-    p {
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto 50px;
-      color: #333;
-    }
-
-    .steps {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-    }
-
-    .step {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      padding: 30px;
-      width: 260px;
-      position: relative;
-      animation: fadeUp 1.5s ease forwards;
-      opacity: 0;
-    }
-
-    .step:nth-child(1) { animation-delay: 0.3s; }
-    .step:nth-child(2) { animation-delay: 0.6s; }
-    .step:nth-child(3) { animation-delay: 0.9s; }
-    .step:nth-child(4) { animation-delay: 1.2s; }
-
-    @keyframes fadeUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .icon {
-      font-size: 50px;
-      margin-bottom: 10px;
-      color: #FFD700;
-    }
-
-    h3 {
-      color: #0d2a3a;
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .line {
-      width: 4px;
-      height: 60px;
-      background: #FFD700;
-      margin: 0 auto;
-      border-radius: 2px;
-      animation: glow 1.5s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { box-shadow: 0 0 10px #FFD700; }
-      to { box-shadow: 0 0 25px #FFD700; }
-    }
-
-    footer {
-      background: #0d2a3a;
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      margin-top: 50px;
-    }
-  </style>
+footer {
+  background: #0d2a3a;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-top: 50px;
+}
+</style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav>
-    <div class="logo">⚖️ InCrime</div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="index.html#categories">Case Categories</a></li>
-      <li><a href="#">How It Works</a></li>
-      <li><a href="chatbot.html">Chatbot Help</a></li>
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-    <button onclick="window.location.href='login.html'">Login</button>
-  </nav>
+<!-- Navbar -->
+<nav>
+  <div class="logo">⚖️ InCrime</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#categories">Case Categories</a></li>
+    <li><a href="#">How It Works</a></li>
+    <li><a href="chatbot.html">Chatbot Help</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <button onclick="window.location.href='login.html'">Login</button>
+</nav>
 
-  <!-- Main Content -->
-  <div class="container">
-    <h1>How InCrime Works</h1>
-    <p>Understand how InCrime simplifies your legal journey through AI-powered automation and real-time guidance.</p>
+<!-- Main Section -->
+<div class="container">
+  <h1>How InCrime Works</h1>
+  <p>Choose a guide below to explore how our system helps you through animation.</p>
 
-    <div class="steps">
-      <div class="step">
-        <div class="icon">🧾</div>
-        <h3>1. Select Your Case Type</h3>
-        <p>Choose from categories like Criminal, Civil, or Family cases to start your process.</p>
-      </div>
+  <div class="boxes">
+    <div class="box" onclick="openModal('chatbot')">
+      <div class="icon">💬</div>
+      <h3>Chatbot Assistance</h3>
+      <p>See how our chatbot helps you get instant legal guidance.</p>
+    </div>
 
-      <div class="line"></div>
-
-      <div class="step">
-        <div class="icon">💬</div>
-        <h3>2. Provide Information</h3>
-        <p>Fill in guided form fields or chat with our AI assistant for help and clarifications.</p>
-      </div>
-
-      <div class="line"></div>
-
-      <div class="step">
-        <div class="icon">⚙️</div>
-        <h3>3. AI Generates Document</h3>
-        <p>Our intelligent system instantly drafts a legally formatted application for your case.</p>
-      </div>
-
-      <div class="line"></div>
-
-      <div class="step">
-        <div class="icon">📄</div>
-        <h3>4. Download or Print</h3>
-        <p>Review your final document, download, or print it directly for court submission.</p>
-      </div>
+    <div class="box" onclick="openModal('application')">
+      <div class="icon">🧾</div>
+      <h3>Generate Application</h3>
+      <p>Learn how to create your case application step-by-step.</p>
     </div>
   </div>
+</div>
 
-  <footer>
-    © 2025 InCrime | Empowering Legal Access for Everyone
-  </footer>
+<!-- Modal Overlay -->
+<div id="overlay" class="overlay">
+  <div class="modal" id="modalContent">
+    <button class="close-btn" onclick="closeModal()">×</button>
+    <h2 id="modalTitle"></h2>
+    <div class="simulation" id="simulationArea"></div>
+  </div>
+</div>
 
+<footer>© 2025 InCrime | Empowering Legal Access for Everyone</footer>
+
+<script>
+function openModal(type) {
+  const overlay = document.getElementById("overlay");
+  const modalTitle = document.getElementById("modalTitle");
+  const simulation = document.getElementById("simulationArea");
+  simulation.innerHTML = ""; // clear old animation
+
+  overlay.classList.add("show");
+
+  if (type === "chatbot") {
+    modalTitle.textContent = "Chatbot Assistance";
+    simulateChatbot(simulation);
+  } else {
+    modalTitle.textContent = "Generate Application";
+    simulateApplication(simulation);
+  }
+}
+
+function closeModal() {
+  document.getElementById("overlay").classList.remove("show");
+}
+
+// Chatbot animation
+function simulateChatbot(container) {
+  const steps = [
+    { type: "chat", text: "👋 Hello! How can I assist you today?" },
+    { type: "user", text: "I want to file a theft case." },
+    { type: "chat", text: "Got it! Let’s start by collecting some details about your case." },
+    { type: "chat", text: "Please provide date and location of incident." },
+  ];
+  let delay = 500;
+  steps.forEach(step => {
+    setTimeout(() => {
+      const bubble = document.createElement("div");
+      bubble.className = step.type === "chat" ? "chat-bubble" : "user-bubble";
+      bubble.textContent = step.text;
+      container.appendChild(bubble);
+      container.scrollTop = container.scrollHeight;
+    }, delay);
+    delay += 1500;
+  });
+}
+
+// Application animation
+function simulateApplication(container) {
+  const steps = [
+    { text: "1️⃣ Select your case type (e.g., Civil, Family, or Criminal)." },
+    { text: "2️⃣ Fill the guided form with your details." },
+    { text: "3️⃣ AI reviews and formats your case document automatically." },
+    { text: "4️⃣ Preview and download your final legal application." },
+    { text: "✅ You're ready to file your case!" },
+  ];
+  let delay = 500;
+  steps.forEach(step => {
+    setTimeout(() => {
+      const line = document.createElement("div");
+      line.className = "chat-bubble";
+      line.textContent = step.text;
+      container.appendChild(line);
+      container.scrollTop = container.scrollHeight;
+    }, delay);
+    delay += 1500;
+  });
+}
+</script>
 </body>
 </html>
