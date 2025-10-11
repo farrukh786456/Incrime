@@ -1,246 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How It Works – InCrime</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #eef3f7, #ffffff);
-      color: #0d2a3a;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works – InCrime</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #eef3f7, #ffffff);
+    color: #0d2a3a;
+    overflow-x: hidden;
+  }
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 60px;
-      background: rgba(13, 42, 58, 0.95);
-      color: #fff;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 60px;
+    background: rgba(13, 42, 58, 0.95);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
 
-    nav .logo {
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+  nav .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
-      margin: 0;
-      padding: 0;
-      margin-left: auto;
-      margin-right: 20px;
-    }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+  }
 
-    nav ul li a {
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: 0.3s;
-    }
+  nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    transition: 0.3s;
+  }
 
-    nav ul li a:hover {
-      color: #FFD700;
-    }
+  nav ul li a:hover { color: #FFD700; }
 
-    .container {
-      text-align: center;
-      padding: 80px 10%;
-    }
+  .container {
+    text-align: center;
+    padding: 80px 10%;
+  }
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 20px;
-    }
+  h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+  }
 
-    p {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 40px;
-    }
+  p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 40px;
+  }
 
-    .box-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-    }
+  .box-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
 
-    .box {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      padding: 40px;
-      width: 300px;
-      cursor: pointer;
-      transition: 0.4s;
-      position: relative;
-    }
+  .box {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    padding: 40px;
+    width: 300px;
+    cursor: pointer;
+    transition: 0.4s;
+  }
 
-    .box:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
+  .box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
 
-    .box h3 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      color: #0d2a3a;
-    }
+  .box h3 {
+    font-size: 24px;
+    color: #0d2a3a;
+  }
 
-    .box p {
-      color: #555;
-      font-size: 16px;
-    }
+  /* Overlay demo screen */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13,42,58,0.8);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
 
-    /* Animation Section */
-    .demo {
-      display: none;
-      margin-top: 50px;
-      animation: fadeIn 1s ease forwards;
-    }
+  .demo-window {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    width: 450px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #666;
+  }
 
-    .demo-box {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      padding: 40px;
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: left;
-      position: relative;
-    }
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    opacity: 0;
+  }
 
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 22px;
-      color: #999;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+  .cursor {
+    width: 15px;
+    height: 15px;
+    background: #FFD700;
+    border-radius: 50%;
+    position: absolute;
+    top: 60px;
+    left: 40px;
+    transition: all 1s ease;
+    opacity: 0;
+  }
 
-    .close-btn:hover {
-      color: #000;
-    }
+  .generate-btn {
+    background: #FFD700;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    opacity: 0;
+  }
 
-    .demo-step {
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      animation: slideUp 1s ease forwards;
-      opacity: 0;
-    }
+  .result-box {
+    margin-top: 30px;
+    padding: 20px;
+    background: #e9f7e9;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #155724;
+    display: none;
+  }
 
-    @keyframes slideUp {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .demo-step:nth-child(1) { animation-delay: 0.2s; }
-    .demo-step:nth-child(2) { animation-delay: 0.5s; }
-    .demo-step:nth-child(3) { animation-delay: 0.8s; }
-    .demo-step:nth-child(4) { animation-delay: 1.1s; }
-
-    .icon {
-      font-size: 36px;
-      color: #FFD700;
-    }
-
-    footer {
-      background: #0d2a3a;
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      margin-top: 50px;
-    }
-  </style>
+  footer {
+    background: #0d2a3a;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 60px;
+  }
+</style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">⚖️ InCrime</div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="index.html#categories">Case Categories</a></li>
-      <li><a href="#">How It Works</a></li>
-      <li><a href="chatbot.html">Chatbot Help</a></li>
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-    <button onclick="window.location.href='login.html'">Login</button>
-  </nav>
+<nav>
+  <div class="logo">⚖️ InCrime</div>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">How It Works</a></li>
+  </ul>
+</nav>
 
-  <div class="container">
-    <h1>How InCrime Works</h1>
-    <p>Click on a section below to explore interactive demos explaining how our system works.</p>
+<div class="container">
+  <h1>How InCrime Works</h1>
+  <p>Click a section below to watch a live demo.</p>
 
-    <div class="box-container">
-      <div class="box" onclick="showDemo('chatbotDemo')">
-        <h3>💬 Chatbot Help</h3>
-        <p>See how our AI chatbot guides you through the legal process.</p>
-      </div>
-
-      <div class="box" onclick="showDemo('applicationDemo')">
-        <h3>🧾 Generate Application</h3>
-        <p>Learn how to create your legal application with ease.</p>
-      </div>
-    </div>
-
-    <!-- Chatbot Demo -->
-    <div id="chatbotDemo" class="demo">
-      <div class="demo-box">
-        <span class="close-btn" onclick="closeDemo('chatbotDemo')">×</span>
-        <h2>💬 Chatbot Help – Step by Step</h2>
-        <div class="demo-step"><span class="icon">🤖</span> You start chatting with InCrime AI assistant.</div>
-        <div class="demo-step"><span class="icon">📋</span> The chatbot asks a few simple questions about your case type.</div>
-        <div class="demo-step"><span class="icon">🧠</span> AI understands your answers and identifies the best legal category.</div>
-        <div class="demo-step"><span class="icon">✅</span> It then guides you to the application generator page automatically.</div>
-      </div>
-    </div>
-
-    <!-- Application Demo -->
-    <div id="applicationDemo" class="demo">
-      <div class="demo-box">
-        <span class="close-btn" onclick="closeDemo('applicationDemo')">×</span>
-        <h2>🧾 Generate Application – Step by Step</h2>
-        <div class="demo-step"><span class="icon">⚙️</span> You select your case type (Criminal, Civil, Family, etc.).</div>
-        <div class="demo-step"><span class="icon">📝</span> Fill in the guided fields or let AI auto-fill for you.</div>
-        <div class="demo-step"><span class="icon">📄</span> AI creates a formatted legal document instantly.</div>
-        <div class="demo-step"><span class="icon">💾</span> You review, download, and print your application for court use.</div>
-      </div>
+  <div class="box-container">
+    <div class="box" onclick="openDemo()">
+      <h3>🧾 Generate Application</h3>
+      <p>Watch how our AI generates your application step-by-step.</p>
     </div>
   </div>
+</div>
 
-  <footer>© 2025 InCrime | Empowering Legal Access for Everyone</footer>
+<!-- Overlay Demo -->
+<div class="overlay" id="demoOverlay">
+  <div class="demo-window">
+    <span class="close-btn" onclick="closeDemo()">×</span>
 
-  <script>
-    function showDemo(id) {
-      document.querySelectorAll('.demo').forEach(d => d.style.display = 'none');
-      const demo = document.getElementById(id);
-      demo.style.display = 'block';
-      window.scrollTo({ top: demo.offsetTop - 50, behavior: 'smooth' });
-    }
+    <div class="cursor" id="cursor"></div>
 
-    function closeDemo(id) {
-      document.getElementById(id).style.display = 'none';
-    }
-  </script>
+    <input type="text" class="input-field" id="nameField" placeholder="Enter Your Name">
+    <input type="text" class="input-field" id="caseField" placeholder="Select Case Type">
+    <input type="text" class="input-field" id="descField" placeholder="Describe Your Case">
+    <button class="generate-btn" id="genBtn">Generate</button>
+
+    <div class="result-box" id="resultBox">
+      ✅ Your legal application has been generated successfully!
+    </div>
+  </div>
+</div>
+
+<footer>© 2025 InCrime | Empowering Legal Access for Everyone</footer>
+
+<script>
+function openDemo() {
+  document.getElementById("demoOverlay").style.display = "flex";
+
+  const cursor = document.getElementById("cursor");
+  const nameField = document.getElementById("nameField");
+  const caseField = document.getElementById("caseField");
+  const descField = document.getElementById("descField");
+  const genBtn = document.getElementById("genBtn");
+  const resultBox = document.getElementById("resultBox");
+
+  // reset
+  cursor.style.opacity = 0;
+  nameField.style.opacity = 0;
+  caseField.style.opacity = 0;
+  descField.style.opacity = 0;
+  genBtn.style.opacity = 0;
+  resultBox.style.display = "none";
+
+  setTimeout(() => {
+    cursor.style.opacity = 1;
+    cursor.style.top = "80px";
+    cursor.style.left = "50px";
+    nameField.style.opacity = 1;
+  }, 800);
+
+  setTimeout(() => {
+    cursor.style.top = "150px";
+    nameField.value = "Muhammad Jamil";
+  }, 2000);
+
+  setTimeout(() => {
+    cursor.style.top = "220px";
+    caseField.style.opacity = 1;
+  }, 3000);
+
+  setTimeout(() => {
+    caseField.value = "Civil Case";
+  }, 4000);
+
+  setTimeout(() => {
+    cursor.style.top = "290px";
+    descField.style.opacity = 1;
+  }, 5000);
+
+  setTimeout(() => {
+    descField.value = "Land ownership dispute with neighbor.";
+  }, 6000);
+
+  setTimeout(() => {
+    cursor.style.top = "350px";
+    cursor.style.left = "150px";
+    genBtn.style.opacity = 1;
+  }, 7000);
+
+  setTimeout(() => {
+    cursor.style.top = "350px";
+    cursor.style.left = "160px";
+    genBtn.click();
+  }, 8000);
+
+  genBtn.onclick = () => {
+    genBtn.style.background = "#ccc";
+    setTimeout(() => {
+      genBtn.innerText = "Processing...";
+    }, 500);
+    setTimeout(() => {
+      genBtn.innerText = "Generate";
+      resultBox.style.display = "block";
+    }, 2000);
+  };
+}
+
+function closeDemo() {
+  document.getElementById("demoOverlay").style.display = "none";
+}
+</script>
+
 </body>
 </html>
